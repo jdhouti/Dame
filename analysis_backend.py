@@ -11,8 +11,6 @@ import matplotlib.pyplot as plt
 class Data_Analysis:
     # this is where the file from the filepath gets transformed into a dataframe
     def __init__(self, filepath):
-        if not filepath.endswith('.csv'):
-            raise NameError("File msut end in .csv") # could there be a better error to raise?
         self.data = pd.read_csv(filepath)
 
     def get_summary_statistics(self, *arg):
