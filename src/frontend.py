@@ -6,7 +6,7 @@
 
 
 from Tkinter import *
-import Tkinter as tk 
+import Tkinter as tk
 import Tkconstants
 import tkFileDialog
 
