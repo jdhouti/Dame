@@ -3,13 +3,12 @@
 # Application : class - sets up and runs GUI commands
 # main() : initiate GUI code
 
-
+# Version 2 - trying to rewrite in python 3
 
 from tkinter import *
 import tkinter as tk
-import Tkconstants
-import tkFileDialog
-
+import tkinter.constants
+import tkinter.filedialog
 
 
 class Application(tk.Frame):
