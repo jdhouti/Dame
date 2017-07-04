@@ -12,6 +12,7 @@ import tkFileDialog
 
 
 
+
 class Application(tk.Frame):
     # constructor - builds Tkinter frame
     def __init__(self, master = None):
@@ -24,7 +25,7 @@ class Application(tk.Frame):
     def get_filepath(self):
         # Note - you can only select CSV files right now
         self.filepath = tkFileDialog.askopenfilename(initialdir = "/",title = "Select data file",filetypes = (("csv files","*.csv"),("all files","*.*")))
-        print self.filepath
+        print(self.filepath)
         # future - once the file is selected, call back end analysis and then draw visualization onscreen
         # Backend calls go here
 
