@@ -3,13 +3,12 @@
 # Application : class - sets up and runs GUI commands
 # main() : initiate GUI code
 
+# Version 2 - trying to rewrite in python 3
 
-
-from Tkinter import *
-import Tkinter as tk
-import Tkconstants
-import tkFileDialog
-
+from tkinter import *
+import tkinter as tk
+import tkinter.constants
+import tkinter.filedialog
 
 
 class Application(tk.Frame):
@@ -24,7 +23,7 @@ class Application(tk.Frame):
     def get_filepath(self):
         # Note - you can only select CSV files right now
         self.filepath = tkFileDialog.askopenfilename(initialdir = "/",title = "Select data file",filetypes = (("csv files","*.csv"),("all files","*.*")))
-        print self.filepath
+        print(self.filepath)
         # future - once the file is selected, call back end analysis and then draw visualization onscreen
         # Backend calls go here
 
