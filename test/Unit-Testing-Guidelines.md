@@ -13,7 +13,7 @@ More documentation for the **unittest module** can be found [here](https://docs.
    ```python
    class ClassTest(unittest.TestCase):
      def first_method_test(self):
-       self.assertEqual(testing conditions here)
+       self.assertEqual(apply_method, expected outcome)
    ```
 4. If there is setting up to do, you can use `setUp(self)` method in your class. The `setUp()` method is usually written at the top of the class and it is automatically ran before every test function in the class the method is written in.
    ```python
