@@ -1,7 +1,9 @@
 # Unit Testing Guidelines
 To make it easier for contributors to follow testing in the **test** folder, it
-is recommended that all contributors follow these instructions/guidelines.
+is recommended that all contributors follow these instructions/guidelines.  
+More documentation for the **unittest module** can be found [here](https://docs.python.org/3/library/unittest.html).
 
+## Steps to create a unit test script
 1. Import the module: `import unittest`
 2. Create a testing class:
    ```python
@@ -13,7 +15,7 @@ is recommended that all contributors follow these instructions/guidelines.
      def first_method_test(self):
        self.assertEqual(testing conditions here)
    ```
-4. If there is setting up to do, you can use `setUp(self)` method in your class.
+4. If there is setting up to do, you can use `setUp(self)` method in your class. The `setUp()` method is usually written at the top of the class and it is automatically ran before every test function in the class the method is written in.
    ```python
    class ...
       def setUp(self):
