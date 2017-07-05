@@ -12,7 +12,8 @@ class TestDataAnalysis(unittest.TestCase):
     #     print(self.obj1.get_summary_statistics())
 
     def testGetHistogram(self):
-        self.obj1.get_histogram('SepalLengthCm').show()
+        self.obj1.get_histogram('PetalLengthCm').show()
+        print(self.obj1.get_file_names)
 
 if __name__ == '__main__':
     unittest.main()
