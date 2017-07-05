@@ -9,6 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 import random
+import file_name_generator as fng
 
 class Data_Analysis:
     # this is where the file from the filepath gets transformed into a dataframe
@@ -57,13 +58,7 @@ class Data_Analysis:
             raise ValueError("User did not input a valud bins amount.")
 
         # generate the name of the histogram file
-        while True:
-            name = str(random.randint(1,10000)) + '.png'
-            if name in self.files:  # check that the name hasn't already been assigned
-                continue
-            else:
-                self.files.append(name)
-                break
+        name = generator.generate_name()
 
         # begin making the histogram
         values = self.data[column]  # values in the column you want to graph
@@ -81,3 +76,23 @@ class Data_Analysis:
 
         img = Image.open(name)
         return img
+
+    def get_scatter_plot(self, column1, column2, xaxis='X axis', yaxis='Y axis', title='Title'):
+        if column1 not in self.data.columns:
+            raise ValueError(column1 + " cannot be found!")
+        if column2 not in self.data.columns:
+            raise ValueError(column2 + " cannot be found!")
+        if column2 == column1:
+            raise ValueError("Both columns cannot be the same!")
+
+        name = generator.generate_name()
+
+        col1values = self.data[column1]
+        col2values = self.data[column2]
+
+        plt.plot(col1values, col2values, 'ro')
+        plt.savefig(name)
+        img = Image.open(name)
+        return img
+
+generator = fng.Name_Generator()
