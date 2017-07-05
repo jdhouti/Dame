@@ -8,7 +8,7 @@
 from tkinter import *
 import tkinter as tk
 import tkinter.constants
-import tkinter.filedialog
+import tkinter.filedialog as tkFileDialog 
 
 
 

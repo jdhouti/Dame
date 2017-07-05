@@ -6,14 +6,17 @@ import unittest
 
 class TestDataAnalysis(unittest.TestCase):
     def setUp(self):
-        self.obj1 = da.Data_Analysis("/Users/Julien/Downloads/FL_insurance_sample.csv")
+        self.obj1 = da.Data_Analysis("/Users/Julien/Downloads/Iris.csv")
 
-    def testGetSummary(self):
-        print(self.obj1.get_summary_statistics())
+    # def testGetSummary(self):
+    #     print(self.obj1.get_summary_statistics())
 
-    def testGetHistogram(self):
-        print(self.obj1.get_histogram('policyID', 100))
-        self.obj1.get_histogram('policyID', 100).show()
+    # def testGetHistogram(self):
+    #     self.obj1.get_histogram('PetalLengthCm').show()
+    #     print(self.obj1.get_file_names)
+
+    def testScatterPlot(self):
+        self.obj1.get_scatter_plot('SepalLengthCm', 'SepalWidthCm')
 
 if __name__ == '__main__':
     unittest.main()
