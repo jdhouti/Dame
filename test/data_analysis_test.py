@@ -6,7 +6,7 @@ import unittest
 
 class TestDataAnalysis(unittest.TestCase):
     def setUp(self):
-        self.obj1 = da.Data_Analysis("/Users/Julien/Downloads/Iris.csv")
+        self.obj1 = da.Data_Analysis("Iris.csv")
 
     # def testGetSummary(self):
     #     print(self.obj1.get_summary_statistics())
