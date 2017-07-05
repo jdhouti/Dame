@@ -24,16 +24,25 @@ class Data_Analysis:
                 raise ValueError('Percentile must be between 0 and 1')
         return(self.data.describe(arg))
 
-    def get_histogram(self, column, bins=10, xaxis='X axis', yaxis='Y axis', title='Title'):
+    def get_histogram(self, column, bins="missing", xaxis='X axis', yaxis='Y axis', title='Title'):
         # check for any values that should not be accepted.
         if column not in self.data.columns:
             raise ValueError("Column cannot be found.")
-        if bins > 100:
-            raise ValueError("You cannot have more than 100 bins.")
+
+        if bins == "missing":
+            bins_not_given = True
+        elif bins <= 0:
+            raise ValueError("The amount of bins should be a positive number.")
 
         # begin making the histogram
         values = self.data[column]  # values in the column you want to graph
-        plt.hist(values, bins=bins)
+
+        # if the user did not give any bins, let the .hist() function determine it
+        if bins_not_given:
+            plt.hist(values)
+        else:
+            plt.hist(values, bins=bins)
+
         plt.xlabel(xaxis)
         plt.title(title)
         plt.ylabel(yaxis)
