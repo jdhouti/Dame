@@ -37,7 +37,7 @@ class Data_Analysis:
         return(self.data.describe(arg))
 
     def get_histogram(self, column, bins="missing", xaxis='X axis', yaxis='Y axis', title='Title'):
-        """Return a generated histogram Image object and the string name of the file.
+        """Return a generated histogram Image object
 
         Keyword arguments:
         column -- the name of the column the histogram should be generated from
@@ -69,15 +69,25 @@ class Data_Analysis:
         else:
             plt.hist(values, bins=bins, ec='black')
 
+        # construct the histogram
         plt.xlabel(xaxis)
         plt.title(title)
         plt.ylabel(yaxis)
         plt.savefig(name)
 
-        img = Image.open(name)
+        img = Image.open(name) # remove this part when function gets implemented
         return img
 
     def get_scatter_plot(self, column1, column2, xaxis='X axis', yaxis='Y axis', title='Title'):
+        """Returns a generated scatter plot Image object
+
+        Keyword arguments:
+        column1 -- the name of the first column. Goes on the x axis
+        column2 -- the name of the second column. Goes on the y axis
+        xaxis -- the x axis label
+        yaxis -- the y axis label
+        title -- the title of the graph
+        """
         if column1 not in self.data.columns:
             raise ValueError(column1 + " cannot be found!")
         if column2 not in self.data.columns:
@@ -85,14 +95,17 @@ class Data_Analysis:
         if column2 == column1:
             raise ValueError("Both columns cannot be the same!")
 
+        # generate the name for the scatter plot
         name = generator.generate_name()
 
+        # using the column name, strip the values from each column using pandas
         col1values = self.data[column1]
         col2values = self.data[column2]
 
+        # create the scatter plot
         plt.plot(col1values, col2values, 'ro')
         plt.savefig(name)
-        img = Image.open(name)
+        img = Image.open(name)  # remove this part when this function gets implemented
         return img
 
 generator = fng.Name_Generator()
