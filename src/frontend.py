@@ -9,7 +9,7 @@ from tkinter import *
 import tkinter as tk
 import tkinter.constants
 import tkinter.filedialog as tkFileDialog
-from PIL import Image, ImageTk 
+from PIL import Image, ImageTk
 import data_analysis as da
 
 
@@ -41,12 +41,12 @@ class Application(tk.Frame):
         self.quitButton.grid(column = 0, row = 1)
         # self.tempLabel = tk.Label(self, text = 'Placeholder for visualizations', font=("Helvetica", 40))
         # self.tempLabel.grid(column = 1, row = 0)
-    
+
     def addAnalysis(self):
         """Places visualizations onto the screen after file is chosen"""
         self.analyze = da.Data_Analysis(self.filepath)
         # histogram
-        image = self.analyze.get_scatter_plot('Duration', 'Age')
+        image = self.analyze.get_histogram('SepalLengthCm', 'SepalWidthCm')
         photo = ImageTk.PhotoImage(image)
         scatter_label = Label(image = photo)
         scatter_label.image = photo

@@ -69,15 +69,14 @@ class Data_Analysis:
 
         # begin making the histogram
         values = self.data[column]  # values in the column you want to graph
-
         # if the user did not give any bins, let the .hist() function determine it
         if bins_not_given:
             plt.hist(values, ec='black')
         else:
             plt.hist(values, bins=bins, ec='black')
 
-        # construct the histogram
         plt.xlabel(column)
+        plt.ylabel(units)
         plt.title(title)
         plt.savefig(name)
 
