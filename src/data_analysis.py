@@ -46,7 +46,7 @@ class Data_Analysis:
                 raise ValueError('Percentile must be between 0 and 1')
         return(self.data.describe(arg))
 
-    def get_histogram(self, column, units, bins="missing", title='Title'):
+    def get_histogram(self, column, units, bins=None, title='Title'):
         """Return a generated histogram Image object
 
         Keyword arguments:
@@ -59,12 +59,12 @@ class Data_Analysis:
         if column not in self.data.columns:
             raise ValueError("Column cannot be found.")
 
-        if bins == "missing":   # bins will get initiated to "missing" in the parameter if not assigned a number.
-            bins_not_given = True
+        if bins == None:   # bins will get initiated to "missing" in the parameter if not assigned a number.
+            pass
         elif bins <= 0:
             raise ValueError("The amount of bins should be a positive number.")
         else:
-            raise ValueError("User did not input a valud bins amount.")
+            raise ValueError("User did not input a valid bins amount.")
 
         # generate the name of the histogram file
         name = generator.generate_name(self.filepath, column, "histogram")
@@ -72,18 +72,13 @@ class Data_Analysis:
         # ----------------------- begin making histogram ----------------------- #
         values = self.data[column]  # values in the column you want to graph
         # if the user did not give any bins, let the .hist() function determine it
-        if bins_not_given:
-            plt.hist(values, ec='black') # this is where it gets automatically determined
-        else:
-            plt.hist(values, bins=bins, ec='black')
-
+        plt.figure()
+        plt.hist(values, bins=bins, ec='black')
         plt.xlabel(column)
         plt.ylabel(units)
         plt.title(title)
-        # ------------------------ for testing purposes ------------------------ #
         plt.savefig(name)
         img = Image.open(name)
-        # ---------------------------------------------------------------------- #
         return img
 
     def get_scatter_plot(self, column1, column2, title='Title'):
@@ -111,12 +106,11 @@ class Data_Analysis:
         col1values = self.data[column1]
         col2values = self.data[column2]
 
-        # ------------------------ create the scatter plot ------------------------ #
+        # ----------------------- create the scatter plot ---------------------- #
+        plt.figure()
         plt.plot(col1values, col2values, 'ro')
         plt.xlabel(column1)
         plt.ylabel(column2)
-        # ------------------------ for testing purposes ------------------------ #
         plt.savefig(name)
         img = Image.open(name)
-        # ---------------------------------------------------------------------- #
         return img

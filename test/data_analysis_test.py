@@ -6,7 +6,7 @@ import unittest
 
 class TestDataAnalysis(unittest.TestCase):
     def setUp(self):
-        self.obj1 = da.Data_Analysis("/Users/Julien/Downloads/Iris.csv")
+        self.obj1 = da.Data_Analysis("Iris.csv")
 
     # def testGetSummary(self):
     #     print(self.obj1.get_summary_statistics())
@@ -14,8 +14,9 @@ class TestDataAnalysis(unittest.TestCase):
     def testGetHistogram(self):
         self.obj1.get_histogram('PetalLengthCm', 'cm').show()
 
-    # def testScatterPlot(self):
-    #     self.obj1.get_scatter_plot('SepalLengthCm', 'SepalWidthCm')
+    def testScatterPlot(self):
+        self.obj1.get_scatter_plot('SepalLengthCm', 'SepalWidthCm')
+        self.obj1.get_scatter_plot('SepalWidthCm', 'SepalLengthCm')
 
     # def testGetColumns(self):
     #     print(self.obj1.get_columns())
