@@ -8,7 +8,9 @@
 from tkinter import *
 import tkinter as tk
 import tkinter.constants
-import tkinter.filedialog as tkFileDialog 
+import tkinter.filedialog as tkFileDialog
+from PIL import Image, ImageTk 
+import data_analysis as da
 
 
 
@@ -27,6 +29,7 @@ class Application(tk.Frame):
         print(self.filepath)
         # future - once the file is selected, call back end analysis and then draw visualization onscreen
         # Backend calls go here
+        self.addAnalysis()
 
 
     # places needed buttons onto the screen
@@ -36,10 +39,18 @@ class Application(tk.Frame):
         # This is just here to easily close the app during testing
         self.quitButton = tk.Button(self, text = "Quit", command = self.quit)
         self.quitButton.grid(column = 0, row = 1)
-        self.tempLabel = tk.Label(self, text = 'Placeholder for visualizations', font=("Helvetica", 40))
-        self.tempLabel.grid(column = 1, row = 0)
-
-
+        # self.tempLabel = tk.Label(self, text = 'Placeholder for visualizations', font=("Helvetica", 40))
+        # self.tempLabel.grid(column = 1, row = 0)
+    
+    def addAnalysis(self):
+        """Places visualizations onto the screen after file is chosen"""
+        self.analyze = da.Data_Analysis(self.filepath)
+        # histogram
+        image = self.analyze.get_scatter_plot('Duration', 'Age')
+        photo = ImageTk.PhotoImage(image)
+        scatter_label = Label(image = photo)
+        scatter_label.image = photo
+        scatter_label.grid(column = 3, row = 3)
 
 
 

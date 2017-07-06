@@ -6,7 +6,14 @@
 
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
+# ---------------------------------
+# This is some weird shenanigans but Stack Overflow said it worked
+# And it does lmao
+import matplotlib
+matplotlib.use("TkAgg")
+from matplotlib import pyplot as plt
+# -------------------------------------
 from PIL import Image
 import random
 import file_name_generator as fng
