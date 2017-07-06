@@ -24,6 +24,7 @@ class Data_Analysis:
     # this is where the file from the filepath gets transformed into a dataframe
     def __init__(self, filepath):
         self.filepath = filepath
+        # this will continue working as long as the only permitted files are .csv files.
         self.data = pd.read_csv(filepath)
 
     def get_columns(self):
@@ -40,6 +41,7 @@ class Data_Analysis:
         Must be between 0 and 1!"""
 
         for percentile in arg:
+            # the .describe() method only accepts numbers between 0 and 1 for percentages
             if percentile < 0 or percentile > 1:
                 raise ValueError('Percentile must be between 0 and 1')
         return(self.data.describe(arg))
@@ -53,11 +55,11 @@ class Data_Analysis:
         bins: int -- the amount of bins the user wants in the histogram (default auto generated)
         title: String -- the title of the generated histogram (default: 'Title')
         """
-        # check for any values that should not be accepted.
+        # check for any values that should not be accepted. The column should be in the dataframe
         if column not in self.data.columns:
             raise ValueError("Column cannot be found.")
 
-        if bins == "missing":
+        if bins == "missing":   # bins will get initiated to "missing" in the parameter if not assigned a number.
             bins_not_given = True
         elif bins <= 0:
             raise ValueError("The amount of bins should be a positive number.")
@@ -67,11 +69,11 @@ class Data_Analysis:
         # generate the name of the histogram file
         name = generator.generate_name(self.filepath, column, "histogram")
 
-        # begin making the histogram
+        # ----------------------- begin making histogram ----------------------- #
         values = self.data[column]  # values in the column you want to graph
         # if the user did not give any bins, let the .hist() function determine it
         if bins_not_given:
-            plt.hist(values, ec='black')
+            plt.hist(values, ec='black') # this is where it gets automatically determined
         else:
             plt.hist(values, bins=bins, ec='black')
 
@@ -93,6 +95,7 @@ class Data_Analysis:
         yaxis -- the y axis label
         title -- the title of the graph
         """
+        # check to see if the given columns actually exist in the csv file.
         if column1 not in self.data.columns:
             raise ValueError(column1 + " cannot be found!")
         if column2 not in self.data.columns:
@@ -107,7 +110,7 @@ class Data_Analysis:
         col1values = self.data[column1]
         col2values = self.data[column2]
 
-        # create the scatter plot
+        # ------------------------ create the scatter plot ------------------------ #
         plt.plot(col1values, col2values, 'ro')
         plt.xlabel(column1)
         plt.ylabel(column2)
