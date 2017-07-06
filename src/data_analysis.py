@@ -23,11 +23,10 @@ class Data_Analysis:
     def __init__(self, filepath):
         self.filepath = filepath
         self.data = pd.read_csv(filepath)
-        self.files = []
 
-    def get_file_names(self):
-        """Returns a list of all of the file names that were generated with each object."""
-        return self.files
+    def get_columns(self):
+        """Returns list of all of the columns in the given .csv file."""
+        return list(self.data.columns)
 
     def get_filepath(self):
         """Returns the file path of the given object."""
@@ -43,15 +42,14 @@ class Data_Analysis:
                 raise ValueError('Percentile must be between 0 and 1')
         return(self.data.describe(arg))
 
-    def get_histogram(self, column, bins="missing", xaxis='X axis', yaxis='Y axis', title='Title'):
+    def get_histogram(self, column, units, bins="missing", title='Title'):
         """Return a generated histogram Image object
 
         Keyword arguments:
-        column -- the name of the column the histogram should be generated from
-        bins -- the amount of bins the user wants in the histogram (default auto generated)
-        xaxis -- the name of the x label (default: 'X axis')
-        yaxis -- the name of the y label (default: 'Y axis')
-        title -- the title of the generated histogram (default: 'Title')
+        column: String -- the name of the column the histogram should be generated from
+        units: String -- the units for the y axis
+        bins: int -- the amount of bins the user wants in the histogram (default auto generated)
+        title: String -- the title of the generated histogram (default: 'Title')
         """
         # check for any values that should not be accepted.
         if column not in self.data.columns:
@@ -77,15 +75,14 @@ class Data_Analysis:
             plt.hist(values, bins=bins, ec='black')
 
         # construct the histogram
-        plt.xlabel(xaxis)
+        plt.xlabel(column)
         plt.title(title)
-        plt.ylabel(yaxis)
         plt.savefig(name)
 
         img = Image.open(name) # remove this part when function gets implemented
         return img
 
-    def get_scatter_plot(self, column1, column2, xaxis='X axis', yaxis='Y axis', title='Title'):
+    def get_scatter_plot(self, column1, column2, title='Title'):
         """Returns a generated scatter plot Image object
 
         Keyword arguments:
@@ -111,6 +108,8 @@ class Data_Analysis:
 
         # create the scatter plot
         plt.plot(col1values, col2values, 'ro')
+        plt.xlabel(column1)
+        plt.ylabel(column2)
         plt.savefig(name)
         img = Image.open(name)  # remove this part when this function gets implemented
         return img

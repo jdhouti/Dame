@@ -11,12 +11,15 @@ class TestDataAnalysis(unittest.TestCase):
     # def testGetSummary(self):
     #     print(self.obj1.get_summary_statistics())
 
-    # def testGetHistogram(self):
-    #     self.obj1.get_histogram('PetalLengthCm').show()
-    #     print(self.obj1.get_file_names)
+    def testGetHistogram(self):
+        self.obj1.get_histogram('PetalLengthCm').show()
+        print(self.obj1.get_file_names)
 
-    def testScatterPlot(self):
-        self.obj1.get_scatter_plot('SepalLengthCm', 'SepalWidthCm')
+    # def testScatterPlot(self):
+    #     self.obj1.get_scatter_plot('SepalLengthCm', 'SepalWidthCm')
+
+    # def testGetColumns(self):
+    #     print(self.obj1.get_columns())
 
 if __name__ == '__main__':
     unittest.main()
