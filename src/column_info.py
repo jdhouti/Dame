@@ -22,16 +22,9 @@ class Column_Info:
 
     def get_type(self):
         """Will return the data type as a string of a given panda series."""
-        if 'int' in str(self.column.dtype):
-            self.type = 'int'
-            return 'int'
-        elif 'float' in str(self.column.dtype):
-            self.type = 'float'
-            return 'float'
-        elif 'bool' in str(self.column.dtype):
-            self.type = 'bool'
-            return 'bool'
-        elif 'string'
+        if 'int' in str(self.column.dtype) or 'float' in str(self.column.dtype):
+            self.type = 'numerical'
+            return 'numerical'
         else:
-            self.type = 'mixed'
-            return 'mixed'
+            self.type = 'categorical'
+            return 'categorical'
