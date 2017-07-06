@@ -18,6 +18,8 @@ from PIL import Image
 import random
 import file_name_generator as fng
 
+generator = fng.Name_Generator()
+
 class Data_Analysis:
     # this is where the file from the filepath gets transformed into a dataframe
     def __init__(self, filepath):
@@ -63,7 +65,7 @@ class Data_Analysis:
             raise ValueError("User did not input a valud bins amount.")
 
         # generate the name of the histogram file
-        name = generator.generate_name()
+        name = generator.generate_name(self.filepath, column)
 
         # begin making the histogram
         values = self.data[column]  # values in the column you want to graph
@@ -113,5 +115,3 @@ class Data_Analysis:
         plt.savefig(name)
         img = Image.open(name)  # remove this part when this function gets implemented
         return img
-
-generator = fng.Name_Generator()
