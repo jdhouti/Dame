@@ -5,20 +5,20 @@
 import random
 
 class Name_Generator:
-    def generate_name(self, filepath, column):
+    def generate_name(self, filepath, column, analysis):
         """Generates a name for a given filepath
 
         filepath: String -- the filepath of the file needing a name
         column: String -- the first column or keyword associated with the file
+        analysis: String -- the kind of analysis performed
         """
-        name, counter = "", -1
+        name, counter = "", -5
         while True:
+            # iterates through the string backwards
             if filepath[counter] != "/":
                 name = name + filepath[counter]
                 counter -= 1
             else:
                 break
 
-        return name[::-1] # reverses the string
-
-        return self.get_file_name(filepath) + "_" + column + ".jpg"
+        return name[::-1] + "_" + column + "_" + analysis + ".jpg"

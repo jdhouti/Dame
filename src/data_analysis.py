@@ -65,7 +65,7 @@ class Data_Analysis:
             raise ValueError("User did not input a valud bins amount.")
 
         # generate the name of the histogram file
-        name = generator.generate_name(self.filepath, column)
+        name = generator.generate_name(self.filepath, column, "histogram")
 
         # begin making the histogram
         values = self.data[column]  # values in the column you want to graph
@@ -102,7 +102,7 @@ class Data_Analysis:
             raise ValueError("Both columns cannot be the same!")
 
         # generate the name for the scatter plot
-        name = generator.generate_name()
+        name = generator.generate_name(self.filepath, column1, "scatter")
 
         # using the column name, strip the values from each column using pandas
         col1values = self.data[column1]
