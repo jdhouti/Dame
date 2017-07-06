@@ -80,9 +80,10 @@ class Data_Analysis:
         plt.xlabel(column)
         plt.ylabel(units)
         plt.title(title)
+        # ------------------------ for testing purposes ------------------------ #
         plt.savefig(name)
-
-        img = Image.open(name) # remove this part when function gets implemented
+        img = Image.open(name)
+        # ---------------------------------------------------------------------- #
         return img
 
     def get_scatter_plot(self, column1, column2, title='Title'):
@@ -114,6 +115,8 @@ class Data_Analysis:
         plt.plot(col1values, col2values, 'ro')
         plt.xlabel(column1)
         plt.ylabel(column2)
+        # ------------------------ for testing purposes ------------------------ #
         plt.savefig(name)
-        img = Image.open(name)  # remove this part when this function gets implemented
+        img = Image.open(name)
+        # ---------------------------------------------------------------------- #
         return img
