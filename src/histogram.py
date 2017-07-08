@@ -5,12 +5,15 @@
 
 import graph
 import pandas as pd
-from PIL import
+from PIL import Image
+from sys import path
+import file_name_generator as fng
 
-class Histogram(Graph):
+class Histogram(graph.Graph):
     def __init__(self, title):
         super().__init__("histogram", title)
-        super().image = None
+        super().setImage(None)
+        generator = fng.Name_Generator()
 
     def generate(self, column, units, bins=None):
         """Will generate the graph based on the given information."""
@@ -35,6 +38,6 @@ class Histogram(Graph):
         plt.hist(values, bins=bins, ec='black', color=super().currentColor)
         plt.xlabel(column)
         plt.ylabel(units)
-        plt.title(title)
+        plt.title(super().title)
         plt.savefig(name)
         super().setImage(Image.open(name))
