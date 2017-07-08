@@ -59,7 +59,7 @@ class Data_Analysis:
         if column not in self.data.columns:
             raise ValueError("Column cannot be found.")
 
-        if bins == None:   # bins will get initiated to "missing" in the parameter if not assigned a number.
+        if not bins:   # bins will get initiated to "missing" in the parameter if not assigned a number.
             pass
         elif bins <= 0:
             raise ValueError("The amount of bins should be a positive number.")
