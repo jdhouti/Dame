@@ -5,8 +5,8 @@
 
 import pandas as pd
 
-class Column_Info:
-    def __init__(self, path, column):
+class Column:
+    def __init__(self, column):
         """Will initialize the column info class by determining the kind of info
         inside of the given column.
 
@@ -15,12 +15,7 @@ class Column_Info:
         """
 
 
-        # create a apanda object using the given filepath
-        data = pd.read_csv(path)
-        try:    # checks to see if the given column exists
-            self.column = data[column]
-        except:
-            raise ValueError("Column could not be found!")
+        self.column = column
         self.type = ""
         self.determined_type = False    # set to true if get_type was already run
 
