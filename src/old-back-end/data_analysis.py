@@ -45,7 +45,7 @@ class Data_Analysis:
                 raise ValueError('Percentile must be between 0 and 1')
         return(self.data.describe(arg))
 
-    def get_histogram(self, column, bins=None, title='Title'):
+    def get_histogram(self, column, units, bins=None, title='Title'):
         """Return a generated histogram Image object
 
         Keyword arguments:
@@ -58,7 +58,7 @@ class Data_Analysis:
         if column not in self.data.columns:
             raise ValueError("Column cannot be found.")
 
-        if not bins:   # bins will get initiated to "missing" in the parameter if not assigned a number.
+        if bins == None:   # bins will get initiated to "missing" in the parameter if not assigned a number.
             pass
         elif bins <= 0:
             raise ValueError("The amount of bins should be a positive number.")
@@ -74,7 +74,7 @@ class Data_Analysis:
         plt.figure()
         plt.hist(values, bins=bins, ec='black')
         plt.xlabel(column)
-        plt.ylabel("Quantity")
+        plt.ylabel(units)
         plt.title(title)
         plt.savefig(name)
         img = Image.open(name)
