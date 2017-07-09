@@ -15,7 +15,7 @@ class Histogram(graph.Graph):
         super().setImage(None)
         generator = fng.Name_Generator()
 
-    def generate(self, column, units, bins=None):
+    def generate(self, column, bins=None):
         """Will generate the graph based on the given information."""
         # check for any values that should not be accepted. The column should be in the dataframe
         if column not in self.data.columns:
@@ -37,7 +37,7 @@ class Histogram(graph.Graph):
         plt.figure()
         plt.hist(values, bins=bins, ec='black', color=super().currentColor)
         plt.xlabel(column)
-        plt.ylabel(units)
+        plt.ylabel("Quantity")
         plt.title(super().title)
         plt.savefig(name)
         super().setImage(Image.open(name))
