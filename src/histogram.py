@@ -46,9 +46,3 @@ class Histogram(graph.Graph):
         super().set_image(Image.open(name))
         os.remove(name) # delete the file
 
-my_hist = Histogram('/Users/Julien/Downloads/Iris.csv')
-my_hist.generate('SepalLengthCm', color='blue')
-my_hist.get_image().show()
-my_hist.generate('SepalWidthCm', color='green')
-my_hist.get_image().show()
-print(my_hist.get_data())
