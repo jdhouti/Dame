@@ -1,4 +1,4 @@
-# histogram.py - This files contains the Graph object
+# histogram.py - This files contains the histogram object used to build a histogram
 # Author: Julien Dhouti
 # Histogram : class - contains all of the attribute to the histogram object
 # Python 3.6.1
