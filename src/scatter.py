@@ -12,7 +12,7 @@ import os
 class Scatter(graph.Graph):
     def __init__(self, filepath):
         super().__init__(self, filepath)
-        super().setImage(None)
+        super().set_image(None)
         self.generator = fng.Name_Generator()
 
     def generate(self, column1, column2, title=None, color='red'):

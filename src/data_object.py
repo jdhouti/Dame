@@ -39,7 +39,7 @@ class Data_Object:
 
         colinfo_list = []
         for col in self.data.columns:
-            list.append(ci.Column(col))
+            colinfo_list.append(ci.Column(col))
 
         return colinfo_list
 

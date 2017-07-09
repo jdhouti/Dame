@@ -61,17 +61,17 @@ class Application(tk.Frame):
 
     def determine_visualization_type(self, event):
         if event == 'Histogram':
-            set_up_histogram()
+            self.set_up_histogram()
         elif event == 'Scatter Plot':
-            set_up_scatter_plot()
+            self.set_up_scatter_plot()
 
 
     def set_up_scatter_plot(self):
         self.scatter_object = sc.Scatter(self.filepath)
-        column_infos = scatter_object.get_columns()
+        column_infos = self.scatter_object.get_columns()
         output = []
         for column in column_infos:
-            if column_infos.get_type() == 'numerical':
+            if column.get_type() == 'numerical':
                 output.append(column.get_name())
         column_names = output
         self.x_column_name = StringVar(self.master)

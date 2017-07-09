@@ -29,7 +29,7 @@ class Column:
 
         # if self.determined_type == false, type has not been determined so initiate
         # the analysis
-        if 'int' in str(self.column.dtype) or 'float' in str(self.column.dtype):
+        if 'int' in self.column.dtype or 'float' in self.column.dtype:
             self.type = 'numerical'
             self.determined_type = True
             return 'numerical'
