@@ -16,11 +16,14 @@ from matplotlib import pyplot as plt
 # -------------------------------------
 from PIL import Image
 import file_name_generator as fng
+import column_info as ci
 
 generator = fng.Name_Generator()
 
 class Data_Object:
     """This is the master object."""
+
+    
     # this is where the file from the filepath gets transformed into a dataframe
     def __init__(self, filepath):
         self.filepath = filepath
@@ -32,16 +35,25 @@ class Data_Object:
 
     def get_columns(self):
         """Returns list of all of the columns in the given .csv file."""
-        return list(self.data.columns)
+
+
+        colinfo_list = []
+        for col in self.data.columns:
+            list.append(ci.Column(col))
+
+        return colinfo_list
 
     def get_filepath(self):
         """Returns the file path of the given object."""
+
+
         return self.filepath
 
     def get_summary_statistics(self, *arg):
         """Create a summary of statistics for the given file using the describe
         method in the Pandas module. Takes in number of percentiles to return.
         Must be between 0 and 1!"""
+
 
         for percentile in arg:
             # the .describe() method only accepts numbers between 0 and 1 for percentages
