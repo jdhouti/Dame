@@ -4,40 +4,44 @@
 # Python 3.6.1
 
 import graph
-import pandas as pd
 from PIL import Image
-from sys import path
 import file_name_generator as fng
+import matplotlib.pyplot as plt
+import os
 
 class Histogram(graph.Graph):
-    def __init__(self, title):
-        super().__init__("histogram", title)
+    def __init__(self, filepath):
+        super().__init__("histogram", filepath)
         super().setImage(None)
-        generator = fng.Name_Generator()
+        self.generator = fng.Name_Generator()
 
-    def generate(self, column, bins=None):
+    def generate(self, column, bins=None, title=None, color='red'):
         """Will generate the graph based on the given information."""
         # check for any values that should not be accepted. The column should be in the dataframe
-        if column not in self.data.columns:
+        if column not in super().getData().columns:
             raise ValueError("Column cannot be found.")
 
         if bins == None:   # bins will get initiated to "missing" in the parameter if not assigned a number.
             pass
         elif bins <= 0:
             raise ValueError("The amount of bins should be a positive number.")
-        else:
-            raise ValueError("User did not input a valid bins amount.")
 
         # generate the name of the histogram file
-        name = generator.generate_name(self.filepath, column, "histogram")
+        name = self.generator.generate_name(super().getFilePath(), column, "histogram")
+        super().setImageName(name)
 
         # ----------------------- begin making histogram ----------------------- #
-        values = self.data[column]  # values in the column you want to graph
+        values = super().getData()[column]  # values in the column you want to graph
         # if the user did not give any bins, let the .hist() function determine it
         plt.figure()
-        plt.hist(values, bins=bins, ec='black', color=super().currentColor)
+        if bins == None:
+            plt.hist(values, ec='black', color=super().getCurrentColor())
+        else:
+            plt.hist(values, bins=bins, ec='black', color=super().getCurrentColor())
         plt.xlabel(column)
         plt.ylabel("Quantity")
-        plt.title(super().title)
+        if title != None:
+            plt.title(title)
         plt.savefig(name)
         super().setImage(Image.open(name))
+        os.remove(name) # delete the file
