@@ -13,6 +13,8 @@ class Column_Info:
         column: String -- contains all of the information in of the given column
         path: String -- the string that indicates the path to the csv file
         """
+
+
         # create a apanda object using the given filepath
         data = pd.read_csv(path)
         try:    # checks to see if the given column exists
@@ -24,6 +26,8 @@ class Column_Info:
 
     def get_type(self):
         """Will return the data type as a string of a given panda series."""
+
+
         # checks to see if the type has already been determined to improve efficiency
         if self.determined_type:
             return self.type

@@ -4,50 +4,46 @@
 # Python 3.6.1
 
 import pandas as pd
+import data_object as do
 
-class Graph:
+class Graph(do.Data_Object):
     def __init__(self, graphType, filepath):
+        super().__init__(filepath)
         self.type = graphType
         self.image = None
         self.imageName = None
-        self.filepath = filepath
-        self.data = pd.read_csv(filepath)   # data contains the file path of the object
         self.colors = ['black', 'blue', 'green', 'red', 'yellow', 'orange']
         self.currentColor = self.colors[1]
 
-    def getType(self):
+    def get_type(self):
         """Returns the type of the graph (String)."""
         return self.type
 
-    def getData(self):
-        """Returns the panda series of the given data for each graph. (panda.Series)"""
-        return self.data
-
-    def getImage(self):
+    def get_image(self):
         """Returns the Image of the generated graph (Image)"""
         return self.image
 
-    def getFilePath(self):
+    def get_file_path(self):
         """Returns the filepath of the .csv file (String)."""
         return self.filepath
 
-    def getCurrentColor(self):
+    def get_current_color(self):
         """Returns the current set color for generated graphs (String)."""
         return self.currentColor
 
-    def getColors(self):
+    def get_colors(self):
         """Returns the available colors for the graph."""
         return self.colors
 
-    def setImage(self, img):
+    def set_image(self, img):
         """Sets the image of the generated graph."""
         self.image = img
 
-    def setImageName(self, name):
+    def set_image_name(self, name):
         """Sets the name of the saved image."""
         self.imageName = name
 
-    def changeColor(self, color):
+    def change_color(self, color):
         """Changes the color of the graph that can be generated.
         Needs to be done before .generate() function occurs, otherwise
         change will only be applied to the next generated graph.
