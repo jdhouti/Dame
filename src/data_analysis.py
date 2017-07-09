@@ -46,7 +46,7 @@ class Data_Analysis:
                 raise ValueError('Percentile must be between 0 and 1')
         return(self.data.describe(arg))
 
-    def get_histogram(self, column, units, bins=None, title='Title'):
+    def get_histogram(self, column, bins=None, title='Title'):
         """Return a generated histogram Image object
 
         Keyword arguments:
@@ -75,7 +75,7 @@ class Data_Analysis:
         plt.figure()
         plt.hist(values, bins=bins, ec='black')
         plt.xlabel(column)
-        plt.ylabel(units)
+        plt.ylabel("Quantity")
         plt.title(title)
         plt.savefig(name)
         img = Image.open(name)
