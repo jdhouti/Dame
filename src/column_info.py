@@ -19,6 +19,9 @@ class Column:
         self.type = ""
         self.determined_type = False    # set to true if get_type was already run
 
+
+    def get_name(self):
+        return self.column
     def get_type(self):
         """Will return the data type as a string of a given panda series."""
 
@@ -29,7 +32,8 @@ class Column:
 
         # if self.determined_type == false, type has not been determined so initiate
         # the analysis
-        if 'int' in self.column.dtype or 'float' in self.column.dtype:
+        # if 'int' in self.column.dtype or 'float' in self.column.dtype:
+        if True:
             self.type = 'numerical'
             self.determined_type = True
             return 'numerical'
