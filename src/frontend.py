@@ -15,6 +15,11 @@ import scatter as sc
 import histogram as hst
 
 
+
+"""MEMORY PROBLEMS WITH MATPLOTLIB - IF JULIENS FIX DOESNT WORK CHECK OUT THIS WEBSITE FOR ALTERNATIVE SOLUTION
+https://pythonprogramming.net/how-to-embed-matplotlib-graph-tkinter-gui/"""
+
+
 class Application(tk.Frame):
     # constructor - builds Tkinter frame
     def __init__(self, master = None):
@@ -60,6 +65,7 @@ class Application(tk.Frame):
 
 
     def determine_visualization_type(self, event):
+
         if event == 'Histogram':
             self.set_up_histogram()
         elif event == 'Scatter Plot':
@@ -67,41 +73,95 @@ class Application(tk.Frame):
 
 
     def set_up_scatter_plot(self):
+
+        try:
+            self.x_column_selector.grid_forget()
+        except:
+            print("X had not been created yet")
+            pass
+        try:
+            self.y_column_selector.grid_forget()
+        except:
+            print("Y had not been created yet")
+            pass
+        try:
+            self.plot_label.grid_forget()
+        except:
+            print("image has not been created")
+            pass
+
         self.scatter_object = sc.Scatter(self.filepath)
-        column_infos = self.scatter_object.get_columns()
-        output = []
-        for column in column_infos:
-            if column.get_type() == 'numerical':
-                output.append(column.get_name())
-        column_names = output
+        column_names = self.scatter_object.get_num_columns()
+        
         self.x_column_name = StringVar(self.master)
         self.x_column_name.set("")
-        self.x_column_selector = OptionMenu(self.master, self.x_column_name, *column_names, command = show_scatter_plot)
+
+        self.x_column_selector = OptionMenu(self.master, self.x_column_name, *column_names, command = self.show_scatter_plot)
         self.x_column_selector.grid(row = 6, column = 6)
+
         self.y_column_name = StringVar(self.master)
         self.y_column_name.set("")
-        self.y_column_selector = OptionMenu(self.master, self.x_column_name, *column_names, command = show_scatter_plot)
+
+        self.y_column_selector = OptionMenu(self.master, self.y_column_name, *column_names, command = self.show_scatter_plot)
         self.y_column_selector.grid(row = 6, column = 7)
-
-
-
-    def show_scatter_plot(self):
-        # scatter_object = sc.Scatter(self.filepath)
-        # column_infos = scatter_object.get_columns()
-        # output = []
-        # for column in column_infos:
-        #     if column_infos.get_type() == 'numerical'
-        #     output.append(column.get_name())
-        # column_names = output
-        # x_column_name = StringVar(self.master)
-        # x_column_name.set("")
-        # x_column_selector = OptionsMenu(self.master, self.x_column_name, *output command = show_scatter_plot)
         
-        self.image = self.scatter_object.generate(self.x_column_name.get(), self.y_column_name.get(), title = "", color = 'red')
+
+    def show_scatter_plot(self, event):
+        try:
+            self.plot_label.grid_forget()
+        except:
+            print("image has not been created")
+            pass
+
+        self.scatter_object.generate(self.x_column_name.get(), self.y_column_name.get(), title = "", color = 'red')
+        self.image = self.scatter_object.get_image()
         self.plot_photo = ImageTk.PhotoImage(self.image)
         self.plot_label = Label(image = self.plot_photo)
         self.plot_label.image = self.plot_photo
         self.plot_label.grid(row = 10, column = 5)
+
+    
+    def set_up_histogram(self):
+        try:
+            self.x_column_selector.grid_forget()
+        except:
+            print("x had not been created yet")
+            pass
+        try:
+            self.y_column_selector.grid_forget()
+        except:
+            print("Y had not been created yet")
+            pass
+        try:
+            self.plot_label.grid_forget()
+        except:
+            print("image has not been created")
+            pass
+
+
+        self.histogram_object = hst.Histogram(self.filepath)
+        column_names = self.histogram_object.get_num_columns()
+        
+        self.x_column_name = StringVar(self.master)
+        self.x_column_name.set("")
+
+        self.x_column_selector = OptionMenu(self.master, self.x_column_name, *column_names, command = self.show_histogram)
+        self.x_column_selector.grid(row = 6, column = 6)
+
+    def show_histogram(self,event):
+        try:
+            self.plot_label.grid_forget()
+        except:
+            print("image has not been created")
+            pass
+
+        self.histogram_object.generate(self.x_column_name.get(), title = "", color = "red")
+        self.image = self.histogram_object.get_image()
+        self.plot_photo = ImageTk.PhotoImage(self.image)
+        self.plot_label = Label(image = self.plot_photo)
+        self.plot_label.image = self.plot_photo
+        self.plot_label.grid(row = 10, column = 5)
+
 
 
 

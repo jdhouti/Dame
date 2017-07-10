@@ -17,18 +17,18 @@ class Scatter(graph.Graph):
 
     def generate(self, column1, column2, title=None, color='red'):
         # check to see if the given columns actually exist in the csv file.
-        if column1 not in super().getData().columns:
+        if column1 not in super().get_data().columns:
             raise ValueError(column1 + " cannot be found!")
-        if column2 not in super().getData().columns:
+        if column2 not in super().get_data().columns:
             raise ValueError(column2 + " cannot be found!")
         if column2 == column1:
             raise ValueError("Both columns cannot be the same!")
 
-        super().changeColor(color) # set the color of the graph based on the color that was given
+        super().change_color(color) # set the color of the graph based on the color that was given
 
         # generate the name for the scatter plot
-        name = self.generator.generate_name(super().getFilePath(), column1, "scatter")
-        super().setImageName(name)  # send that name to the graph object
+        name = self.generator.generate_name(super().get_file_path(), column1, "scatter")
+        super().set_image_name(name)  # send that name to the graph object
 
         # using the column name, strip the values from each column using pandas
         col1values = self.data[column1]
@@ -42,5 +42,6 @@ class Scatter(graph.Graph):
         plt.savefig(name)
         if title != None:
             plt.title(title)
-        super().setImage(Image.open(name))  # update the self.image of the graph by giving it a img object
+        super().set_image(Image.open(name))  # update the self.image of the graph by giving it a img object
         os.remove(name) # remove the image once we're done with it
+        

@@ -55,5 +55,3 @@ class Data_Object:
                 raise ValueError('Percentile must be between 0 and 1')
         return(self.data.describe(arg))
 
-test = Data_Object("/Users/Julien/Downloads/Iris.csv")
-print(test.get_num_columns())
