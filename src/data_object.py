@@ -5,15 +5,9 @@
 # Python 3.6.1
 
 import pandas as pd
-import numpy as np
-# import matplotlib.pyplot as plt
-# ---------------------------------
-# This is some weird shenanigans but Stack Overflow said it worked
-# And it does lmao
 import matplotlib
 matplotlib.use("TkAgg")
 from matplotlib import pyplot as plt
-# -------------------------------------
 from PIL import Image
 import file_name_generator as fng
 generator = fng.Name_Generator()
@@ -25,6 +19,7 @@ class Data_Object:
         self.data = pd.read_csv(filepath)
 
     def get_data(self):
+        """Returns the data as a panda series."""
         return self.data
 
     def get_num_columns(self):
@@ -53,5 +48,4 @@ class Data_Object:
             # the .describe() method only accepts numbers between 0 and 1 for percentages
             if percentile < 0 or percentile > 1:
                 raise ValueError('Percentile must be between 0 and 1')
-        return(self.data.describe(arg))
-
+        return self.data.describe(arg)
