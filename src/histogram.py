@@ -45,4 +45,3 @@ class Histogram(graph.Graph):
         plt.savefig(name)
         super().set_image(Image.open(name))
         os.remove(name) # delete the file
-

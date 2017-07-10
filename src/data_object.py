@@ -23,7 +23,7 @@ generator = fng.Name_Generator()
 class Data_Object:
     """This is the master object."""
 
-    
+
     # this is where the file from the filepath gets transformed into a dataframe
     def __init__(self, filepath):
         self.filepath = filepath
@@ -31,15 +31,14 @@ class Data_Object:
         self.data = pd.read_csv(filepath)
 
     def get_data(self):
-        return self.data
+        return "hello"
 
     def get_columns(self):
         """Returns list of all of the columns in the given .csv file."""
 
-
-        colinfo_list = []
+        series_list = []
         for col in self.data.columns:
-            colinfo_list.append(ci.Column(col))
+            series_list.append(ci.Column(self.data[col]))
 
         return colinfo_list
 
@@ -60,3 +59,6 @@ class Data_Object:
             if percentile < 0 or percentile > 1:
                 raise ValueError('Percentile must be between 0 and 1')
         return(self.data.describe(arg))
+
+test = Data_Object("/Users/Julien/Downloads/Iris.csv")
+print(test.get_data())

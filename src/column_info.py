@@ -4,20 +4,23 @@
 # Python 3.6.1
 
 import pandas as pd
+import data_object as do
 
-class Column:
-    def __init__(self, column):
+class Column(do.Data_Object):
+    def __init__(self, series):
         """Will initialize the column info class by determining the kind of info
         inside of the given column.
 
-        column: String -- contains all of the information in of the given column
-        path: String -- the string that indicates the path to the csv file
+        column: panda series -- contains all of the information in of the given column
         """
 
-
-        self.column = column
+        self.series = series
         self.type = ""
+
         self.determined_type = False    # set to true if get_type was already run
+
+    def get_column_name(self):
+        return self.column
 
     def get_type(self):
         """Will return the data type as a string of a given panda series."""
@@ -29,7 +32,7 @@ class Column:
 
         # if self.determined_type == false, type has not been determined so initiate
         # the analysis
-        if 'int' in self.column.dtype or 'float' in self.column.dtype:
+        if 'int' in self.series.dtype or 'float' in self.series.dtype:
             self.type = 'numerical'
             self.determined_type = True
             return 'numerical'
