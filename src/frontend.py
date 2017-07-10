@@ -76,11 +76,11 @@ class Application(tk.Frame):
         column_names = output
         self.x_column_name = StringVar(self.master)
         self.x_column_name.set("")
-        self.x_column_selector = OptionsMenu(self.master, self.x_column_name, *column_names, command = show_scatter_plot)
+        self.x_column_selector = OptionMenu(self.master, self.x_column_name, *column_names, command = show_scatter_plot)
         self.x_column_selector.grid(row = 6, column = 6)
         self.y_column_name = StringVar(self.master)
         self.y_column_name.set("")
-        self.y_column_selector = OptionsMenu(self.master, self.x_column_name, *column_names, command = show_scatter_plot)
+        self.y_column_selector = OptionMenu(self.master, self.x_column_name, *column_names, command = show_scatter_plot)
         self.y_column_selector.grid(row = 6, column = 7)
 
 
