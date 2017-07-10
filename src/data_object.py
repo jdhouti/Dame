@@ -16,35 +16,30 @@ from matplotlib import pyplot as plt
 # -------------------------------------
 from PIL import Image
 import file_name_generator as fng
-import column_info as ci
-
 generator = fng.Name_Generator()
 
 class Data_Object:
-    """This is the master object."""
-
-
-    # this is where the file from the filepath gets transformed into a dataframe
     def __init__(self, filepath):
         self.filepath = filepath
         # this will continue working as long as the only permitted files are .csv files.
         self.data = pd.read_csv(filepath)
 
     def get_data(self):
-        return "hello"
+        return self.data
 
-    def get_columns(self):
-        """Returns list of all of the columns in the given .csv file."""
+    def get_num_columns(self):
+        """Will return the data type as a string of a given panda series."""
 
-        series_list = []
+        num_cols = []
         for col in self.data.columns:
-            series_list.append(ci.Column(self.data[col]))
+            if 'int' in str(self.data[col].dtype) or 'float' in str(self.data[col].dtype):
+                num_cols.append(col)
 
-        return colinfo_list
+        return num_cols
+
 
     def get_filepath(self):
         """Returns the file path of the given object."""
-
 
         return self.filepath
 
@@ -61,4 +56,4 @@ class Data_Object:
         return(self.data.describe(arg))
 
 test = Data_Object("/Users/Julien/Downloads/Iris.csv")
-print(test.get_data())
+print(test.get_num_columns())
