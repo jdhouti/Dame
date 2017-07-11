@@ -6,7 +6,8 @@
 import graph
 import matplotlib.pyplot as plt
 from PIL import Image
-import file_name_generator as fng
+import file_name_generator as 
+from sklearn import datasets, linear_model
 import os
 
 class Scatter(graph.Graph):
@@ -44,4 +45,15 @@ class Scatter(graph.Graph):
             plt.title(title)
         super().set_image(Image.open(name))  # update the self.image of the graph by giving it a img object
         os.remove(name) # remove the image once we're done with it
-        
+
+    def lin_generate(self, column1, column2, title=None, color='blue'):
+        """Generates a linear model. This is just like a regular scatter plot but with a
+        linear regression.
+        """
+        # check to see if the given columns actually exist in the csv file.
+        if column1 not in super().get_data().columns:
+            raise ValueError(column1 + " cannot be found!")
+        if column2 not in super().get_data().columns:
+            raise ValueError(column2 + " cannot be found!")
+        if column2 == column1:
+            raise ValueError("Both columns cannot be the same!")

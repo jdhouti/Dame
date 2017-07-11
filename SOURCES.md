@@ -7,3 +7,5 @@ These are the sources that we used to build this project.
 + To conduct testing for backend development, we used the [Unit testing framework](https://docs.python.org/3/library/unittest.html). All documented testing can be found in the **test** folder.
 
 + To make the front end code compatible with python 3, information was found on the [python 3 porting site](http://python3porting.com/stdlib.html).
+
++ To write the `lin_generate()` function, we used [this tutorial](http://scikit-learn.org/stable/auto_examples/linear_model/plot_ols.html) from **Scikit-learn's** website. 
