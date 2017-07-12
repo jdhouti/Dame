@@ -33,16 +33,16 @@ class Application(tk.Frame):
 
 
         self.master.title("DAME")
-        self.visualization_selector()
-        self.quit_button()
-        self.canvas()
-        self.open_file_button()
-        self.x_column_selector()
-        self.y_column_selector()
-        self.column_selector_label()
+        self.create_visualization_selector()
+        self.create_quit_button()
+        self.create_canvas()
+        self.create_open_file_button()
+        self.create_x_column_selector()
+        self.create_y_column_selector()
+        self.create_column_selector_label()
 
 
-    def open_file_button(self):
+    def create_open_file_button(self):
         """Create button to get filepath for analysis """
 
 
@@ -59,7 +59,7 @@ class Application(tk.Frame):
         # add code to initialize visualization
 
 
-    def visualization_selector(self):
+    def create_visualization_selector(self):
         """Create OptionMenu to choose from different types of analysis 
             self.var - StringVar - use .get() method to get currently selected visualization type - returns STRING
             self.visualization_selector - OptionMenu - allows user to choose between different visualizations (histogram, scatter plot etc)"""
@@ -131,7 +131,7 @@ class Application(tk.Frame):
 
 
 
-    def quit_button(self):
+    def create_quit_button(self):
         """Create button to quit application"""
 
 
@@ -139,7 +139,7 @@ class Application(tk.Frame):
         self.quit_button.grid(column=1, row=3, sticky="nesw")
 
 
-    def canvas(self):
+    def create_canvas(self):
         """Creates a canvas object to draw matplotlib visualizations on
             self.f - Figure - idk what these do can you plot these julien
             self.a - ? - ?????
@@ -155,7 +155,7 @@ class Application(tk.Frame):
 
         self.toolbar = NavigationToolbar2TkAgg(self.canvas, self.master) #do we want to keep this? it allows the user to save the plot so probs useful
 
-    def x_column_selector(self):
+    def create_x_column_selector(self):
         """Create OptionMenu to choose the column for the x axis
             self.x_column_selected - StringVar - use .get() method to get currently selected x column - returns STRING
             self.x_column_selector - OptionMenu - allows user to choose between different columns
@@ -170,7 +170,7 @@ class Application(tk.Frame):
         self.x_column_selector.grid_remove()
         self.x_column_selector_is_visible = False
 
-    def y_column_selector(self):
+    def create_y_column_selector(self):
         """Create OptionMenu to choose the column for the y axis
             self.y_column_selected - StringVar - use .get() method to get currently selected y column - returns STRING
             self.y_column_selector - OptionMenu - allows user to choose between different columns
@@ -185,7 +185,7 @@ class Application(tk.Frame):
         self.y_column_selector.grid_remove()
         self.y_column_selector_is_visible = False
 
-    def column_selector_label(self):
+    def create_column_selector_label(self):
         """Label to indicate this is the area of the screen that holds the column choosers
         self.column_selector_label - Label - Contains some text"""
         self.column_selector_label = Label(self, text = 'Choose Column(s)')
