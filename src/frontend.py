@@ -15,6 +15,19 @@ import scatter as sc
 import histogram as hst
 
 
+import matplotlib
+matplotlib.use('TkAgg')
+
+from numpy import arange, sin, pi, cos, tan
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
+# implement the default mpl key bindings
+# from matplotlib.backend_bases import key_press_handler
+
+
+from matplotlib.figure import Figure
+
+
+
 
 """MEMORY PROBLEMS WITH MATPLOTLIB - IF JULIENS FIX DOESNT WORK CHECK OUT THIS WEBSITE FOR ALTERNATIVE SOLUTION
 https://pythonprogramming.net/how-to-embed-matplotlib-graph-tkinter-gui/"""
@@ -54,6 +67,25 @@ class Application(tk.Frame):
         # This is just here to easily close the app during testing
         self.quitButton = tk.Button(self, text = "Quit", command = self.quit)
         self.quitButton.grid(row = 1, column = 0)
+
+        # testing alternative plotting solution
+
+        f = Figure(figsize=(5, 4), dpi=100)
+        a = f.add_subplot(111)
+        t = arange(0.0, 3.0, 0.01)
+        s = sin(2*pi*t)
+        a.plot(t, s)
+        canvas = FigureCanvasTkAgg(f, master=drawing_panel)
+        canvas.show()
+        # canvas.get_tk_widget().grid(row = 10, column = 10)
+        # canvas._tkcanvas.grid(row = 10, column = 10)
+        canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+        # toolbar = NavigationToolbar2TkAgg(canvas, root)
+        # toolbar.update()
+        canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=1)
+
+
+
 
     
     def show_visualization(self):

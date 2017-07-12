@@ -1,7 +1,7 @@
 import matplotlib
 matplotlib.use('TkAgg')
 
-from numpy import arange, sin, pi, cos
+from numpy import arange, sin, pi, cos, tan
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 # implement the default mpl key bindings
 from matplotlib.backend_bases import key_press_handler
@@ -31,30 +31,43 @@ canvas.get_tk_widget().pack(side=Tk.TOP, fill=Tk.BOTH, expand=1)
 # toolbar = NavigationToolbar2TkAgg(canvas, root)
 # toolbar.update()
 canvas._tkcanvas.pack(side=Tk.TOP, fill=Tk.BOTH, expand=1)
-def on_key_event(event):
-    print('you pressed %s' % event.key)
-    key_press_handler(event, canvas, toolbar)
+# def on_key_event(event):
+#     print('you pressed %s' % event.key)
+#     key_press_handler(event, canvas, toolbar)
 
-canvas.mpl_connect('key_press_event', on_key_event)
+# canvas.mpl_connect('key_press_event', on_key_event)
 
 def _quit():
     root.quit()     # stops mainloop
     root.destroy()  # this is necessary on Windows to prevent
                     # Fatal Python Error: PyEval_RestoreThread: NULL tstate
-def change(s, t, a, canvas):
+def change1(s, t, a, canvas):
     s = cos(2 * pi * t)
+    a.clear()
     a.plot(t, s)
     canvas.show()
     canvas.get_tk_widget().pack(side = Tk.TOP, fill = Tk.BOTH, expand = 1)
     canvas._tkcanvas.pack(side=Tk.TOP, fill=Tk.BOTH, expand=1)
     print('change() method ran')
+def change2(s, t, a, canvas):
+    s = tan(2 * pi * t)
+    a.clear()
+    a.plot(t, s)
+    canvas.show()
+    canvas.get_tk_widget().pack(side = Tk.TOP, fill = Tk.BOTH, expand = 1)
+    canvas._tkcanvas.pack(side=Tk.TOP, fill=Tk.BOTH, expand=1)
+    print('change2() method ran')
 
 
 
 button = Tk.Button(master=root, text='Quit', command=_quit)
 button.pack(side=Tk.BOTTOM)
-changeButton = Tk.Button(master = root, text = 'Change Graph', command = lambda: change(s, t, a, canvas))
+changeButton = Tk.Button(master = root, text = 'Change Graph Cos', command = lambda: change1(s, t, a, canvas))
 changeButton.pack(side = Tk.BOTTOM)
+changeButton2 = Tk.Button(master = root, text = 'Change Graph Tan', command = lambda: change2(s, t, a, canvas))
+changeButton2.pack(side = Tk.RIGHT)
+
+
 
 Tk.mainloop()
 # If you put root.destroy() here, it will cause an error if
