@@ -126,7 +126,9 @@ class Application(tk.Frame):
         column_name = self.x_column_selected.get()
         # histogram generated here - reference the canvas() method for the variable names to generate the plot
         print("Histogram with " + column_name + " x column to be generated")
-        self.f, self.a = self.histogram_object.generate(column_name)
+        self.f = Figure(figsize = (4,2), dpi = 100)
+        self.a = fig.add_subplot(111)
+        self.a = self.histogram_object.generate(column_name, self.a)
         self.canvas = FigureCanvasTkAgg(self.f, master=self)
         self.canvas.get_tk_widget().grid(column=3, row=1, rowspan=5, sticky="nesw")
         print("Did it show anything onscreen?")
@@ -180,8 +182,7 @@ class Application(tk.Frame):
 
         # leave as placeholder for now
         my_hist = hist.Histogram('../test/Iris.csv')        # you may want to put this somewhere else, this was for testing
-        test = my_hist.generate('SepalWidthCm')             # this too
-        self.f, self.a = test                               # check what the generate() function returns. It returns the figure and the subplot
+        self.a = my_hist.generate('SepalWidthCm', self.a)             # this too
                                                             # so you don't need the objects on lines 153 and 154 and i generate the subplot so get rid of 155 too.
 
         # self.f = Figure(figsize = (4,2), dpi = 100)
