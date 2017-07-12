@@ -5,6 +5,7 @@
 # /Users/Julien/Downloads
 
 import graph
+import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 import file_name_generator as fng
@@ -35,8 +36,8 @@ class Scatter(graph.Graph):
             ax: a subplot on which the graph will be drawn on.
 
         Returns:
-            A a tuple of size 2 containing the figure of the graph and its subplot. Both are needed
-            to draw the figure in a canvas when using tkinter.
+            An altered subplot object with a scatter plot graph that can be used in 
+            the canvas method for the tkinter interface.
         """
 
         # Generates the name for the scatter plot.
@@ -57,51 +58,38 @@ class Scatter(graph.Graph):
 
         return ax
 
-    def lin_generate(self, column1, column2, title=None, color='blue'):
-        """Generates a linear model. This is just like a regular scatter plot but with a
-        linear regression.
-        """
-        # check to see if the given columns actually exist in the csv file.
-        if column1 not in super().get_data().columns:
-            raise ValueError(column1 + " cannot be found!")
-        if column2 not in super().get_data().columns:
-            raise ValueError(column2 + " cannot be found!")
-        if column2 == column1:
-            raise ValueError("Both columns cannot be the same!")
+    def lin_generate(self, column1, column2, ax, title=None):
+        """Generates a linear model. This is a regular scatter plot but with a
+        linear regression line passing through it.
 
-        # convert given columns into numpy arrays
+        Args:
+            column1: a string specifying the name of the first column to represent x axis.
+            column2: a string specifying the name of the second column to represent the y axis.
+            title: a string specifying the title of the graph.
+            ax: a subplot on which the graph will be drawn on.
+
+        Returns:
+            An altered subplot object with a linear line that can be used in 
+            the canvas method for the tkinter interface.
+        """
+
+        # Converts given columns into numpy arrays.
         column_x = super().get_data()[column1].values
         column_y = super().get_data()[column2].values
 
-        # we want to train 95% of the data and test on 5% so we much split
-        # up the given columns accordingly. 
+        # Trains 95% of the data and tests 5%. Splits up the given 
+        # columns accordingly. 
         column_x_train = column_x[:int(column_x.size * 0.95)]
         column_x_test = column_x[-(column_x.size - int(column_x.size * 0.95)):]
-        print(column_x_train.size)
-        print(column_x_test.size)
 
         column_y_train = column_y[:int(column_y.size * 0.95)]
         column_y_test = column_y[-(column_y.size - int(column_y.size * 0.95)):]
-        print(column_y_test.size)
-        print(column_y_train.size)
 
-        column_x_test.reshape(1,-1)
-        column_x_train.reshape(1,-1)
-        column_y_test.reshape(1,-1)
-        column_y_train.reshape(1,-1)
+        # Creates the training model.
+        m, b = np.polyfit(column_x, column_y, 1)
 
-        # create the training model
-        regr = linear_model.LinearRegression()
-        regr.fit(column_x_train, column_y_train)
+        ax.scatter(column_x_test, column_y_test,  color='black')
+        ax.plot(column_x, m * column_x + b, '-')
 
-        plt.scatter(column_x_test, column_y_test,  color='black')
-        plt.plot(column_x_test, regr.predict(column_x_test), color='blue', linewidth=3)
-
-        plt.xticks(())
-        plt.yticks(())
-
-        plt.show()
-
-my_scatter = Scatter("/Users/Julien/Downloads/Iris.csv")
-my_scatter.lin_generate('SepalLengthCm', 'SepalWidthCm')
+        return ax
 
