@@ -126,6 +126,10 @@ class Application(tk.Frame):
         column_name = self.x_column_selected.get()
         # histogram generated here - reference the canvas() method for the variable names to generate the plot
         print("Histogram with " + column_name + " x column to be generated")
+        self.f, self.a = self.histogram_object.generate(column_name)
+        self.canvas = FigureCanvasTkAgg(self.f, master=self)
+        self.canvas.get_tk_widget().grid(column=3, row=1, rowspan=5, sticky="nesw")
+        print("Did it show anything onscreen?")
 
 
 
@@ -173,6 +177,8 @@ class Application(tk.Frame):
             self.a - Plot - the plot in question.
             self.canvas - FigureCanvasTkAgg - tkinter widget that holds figure"""
 
+
+        # leave as placeholder for now
         my_hist = hist.Histogram('../test/Iris.csv')        # you may want to put this somewhere else, this was for testing
         test = my_hist.generate('SepalWidthCm')             # this too
         self.f, self.a = test                               # check what the generate() function returns. It returns the figure and the subplot
