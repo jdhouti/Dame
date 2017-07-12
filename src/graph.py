@@ -3,7 +3,6 @@
 # Graph : class - contains all of the attribute to the graph object
 # Python 3.6.1
 
-import pandas as pd
 import data_object as do
 
 class Graph(do.Data_Object):
@@ -11,9 +10,9 @@ class Graph(do.Data_Object):
         super().__init__(filepath)
         self.type = graphType
         self.image = None
-        self.imageName = None
+        self.image_name = None
         self.colors = ['black', 'blue', 'green', 'red', 'yellow', 'orange']
-        self.currentColor = self.colors[1]
+        self.current_color = self.colors[1]
 
     def get_type(self):
         """Returns the type of the graph (String)."""
@@ -29,7 +28,7 @@ class Graph(do.Data_Object):
 
     def get_current_color(self):
         """Returns the current set color for generated graphs (String)."""
-        return self.currentColor
+        return self.current_color
 
     def get_colors(self):
         """Returns the available colors for the graph."""
@@ -41,7 +40,7 @@ class Graph(do.Data_Object):
 
     def set_image_name(self, name):
         """Sets the name of the saved image."""
-        self.imageName = name
+        self.image_name = name
 
     def change_color(self, color):
         """Changes the color of the graph that can be generated.
@@ -51,4 +50,4 @@ class Graph(do.Data_Object):
         if color not in self.colors:
             raise ValueError("Color not found.")
         else:
-            self.currentColor = self.colors[self.colors.index(color)]
+            self.current_color = self.colors[self.colors.index(color)]
