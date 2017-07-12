@@ -141,8 +141,8 @@ class Application(tk.Frame):
 
     def canvas(self):
         """Creates a canvas object to draw matplotlib visualizations on
-            self.f - Figure - idk what these do can you plot these julien
-            self.a - ? - ?????
+            self.f - Figure - contains the figure object for all of the subplots
+            self.a - Plot - the plot in question.
             self.canvas - FigureCanvasTkAgg - tkinter widget that holds figure"""
 
         my_hist = hist.Histogram('../test/Iris.csv')        # you may want to put this somewhere else, this was for testing
