@@ -1,22 +1,22 @@
 import sys
+# matplotlib imports
 import matplotlib
 matplotlib.use('TkAgg')
-
 from numpy import arange, sin, pi, cos, tan
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
-# implement the default mpl key bindings
-# from matplotlib.backend_bases import key_press_handler
-
-import histogram as hist
-
 from matplotlib.figure import Figure
 
+# Dame imports
+import histogram as hist
+import data_object as do
+
+# tkinter imports
 from tkinter import *
 import tkinter as tk
 import tkinter.constants
 import tkinter.filedialog as tkFileDialog
 
-# master = parent
+# note: master = parent
 
 class Application(tk.Frame):
     def __init__(self, master):
@@ -40,7 +40,29 @@ class Application(tk.Frame):
         self.create_x_column_selector()
         self.create_y_column_selector()
         self.create_column_selector_label()
+        self.create_show_visualization_button()
 
+    def initialize_analysis(self):
+        """Load all analysis objects needed
+            self.analysis_object - Data_Object - Used to handle column manipulation on GUI
+            self.histogram_object - Histogram - Handles generation of histogram and manipulation"""
+
+
+        self.analysis_object = do.Data_Object(self.filepath)
+        self.histogram_object = hist.Histogram(self.filepath)
+
+        # update column selectors with column names from file
+        numerical_columns = self.analysis_object.get_num_columns()
+
+        # delete old placeholder column ""
+        self.x_column_selector['menu'].delete(0, 'end')
+        self.y_column_selector['menu'].delete(0, 'end')
+
+        # add new column options
+        for column in numerical_columns:
+            self.x_column_selector['menu'].add_command(label=column, command = tk._setit(self.x_column_selected, column))
+            self.y_column_selector['menu'].add_command(label=column, command = tk._setit(self.y_column_selected, column))
+        
 
     def create_open_file_button(self):
         """Create button to get filepath for analysis """
@@ -57,6 +79,7 @@ class Application(tk.Frame):
         self.filepath = tkFileDialog.askopenfilename(initialdir = "/",title = "Select data file",filetypes = (("csv files","*.csv"),("all files","*.*")))
         print(self.filepath)
         # add code to initialize visualization
+        self.initialize_analysis()
 
 
     def create_visualization_selector(self):
@@ -95,14 +118,14 @@ class Application(tk.Frame):
 
     
 
-    def show_histogram(self, event):
+    def show_histogram(self):
         """Generate histogram
             event - STRING - sent by self.x_column_selector when a column is selected"""
 
 
-        column_name = event
+        column_name = self.x_column_selected.get()
         # histogram generated here - reference the canvas() method for the variable names to generate the plot
-
+        print("Histogram with " + column_name + " x column to be generated")
 
 
 
@@ -120,15 +143,20 @@ class Application(tk.Frame):
         # generate scatter plot graph here - ACTUALLY MAKE METHOD show_scatter_plot() CALLED BY THE OPTIONMENU TO DO THAT
 
 
-    def show_scatter_plot(self, event):
+    def show_scatter_plot(self):
         """Generate scatter plot
             event - STRING - sent by self.x_column_selector or self.y_column_selector when a column is selected"""
 
 
-        x_column_name = self.x_column_selected
-        y_column_name = self.y_column_selected
-        # histogram generated here - reference the canvas() method for the variable names to generate the plot
-
+        x_column_name = self.x_column_selected.get()
+        y_column_name = self.y_column_selected.get()
+        # scatter plot generated here - reference the canvas() method for the variable names to generate the plot
+        if x_column_name == "" or y_column_name == "":
+            print("Both columns are not filled wont generate scatter plot")
+        elif x_column_name == y_column_name:
+            print("Both columns are the same cannot plot")
+        else:
+            print("Scatter plot with " + x_column_name + " x column to be generated and " + y_column_name + " y column to be generated")
 
 
     def create_quit_button(self):
@@ -166,10 +194,11 @@ class Application(tk.Frame):
             self.x_column_selector_is_visible - BOOLEAN - if self.x_column_selector is on the screen"""
 
 
-        OPTIONS = ['Column1', 'Column2'] #replace this with actual columns from the data object
+        # OPTIONS = self.analysis_object.get_num_columns() #replace this with actual columns from the data object
+        self.X_OPTIONS = [""]
         self.x_column_selected = StringVar(self.master)
         self.x_column_selected.set("")
-        self.x_column_selector = OptionMenu(self, self.x_column_selected, *OPTIONS, command = self.show_histogram)
+        self.x_column_selector = OptionMenu(self, self.x_column_selected, *self.X_OPTIONS)
         self.x_column_selector.grid(row = 2, column = 2, sticky = 'nesw')
         self.x_column_selector.grid_remove()
         self.x_column_selector_is_visible = False
@@ -181,20 +210,36 @@ class Application(tk.Frame):
             self.y_column_selector_is_visible - BOOLEAN - if self.y_column_selector is on the screen"""
 
 
-        OPTIONS = ['Column1', 'Column2'] #replace this with actual columns from the data object
+        # OPTIONS = self.analysis_object.get_num_columns() #replace this with actual columns from the data object
+        self.Y_OPTIONS = [""]
         self.y_column_selected = StringVar(self.master)
         self.y_column_selected.set("")
-        self.y_column_selector = OptionMenu(self, self.y_column_selected, *OPTIONS)
+        self.y_column_selector = OptionMenu(self, self.y_column_selected, *self.Y_OPTIONS)
         self.y_column_selector.grid(row = 3, column = 2, sticky = 'nesw')
         self.y_column_selector.grid_remove()
         self.y_column_selector_is_visible = False
 
+
+    def show_visualization(self):
+        """Calls whichever visualization method is desired"""
+
+
+        if self.var.get() == 'Histogram':
+            self.show_histogram()
+        elif self.var.get() == 'Scatter Plot':
+            self.show_scatter_plot()
+
     def create_column_selector_label(self):
         """Label to indicate this is the area of the screen that holds the column choosers
         self.column_selector_label - Label - Contains some text"""
+        
+
         self.column_selector_label = Label(self, text = 'Choose Column(s)')
         self.column_selector_label.grid(row = 1, column = 2, sticky = 'nesw')
 
+    def create_show_visualization_button(self):
+        self.show_visualization_button = Button(self, text='Generate Plot', command = self.show_visualization)
+        self.show_visualization_button.grid(row = 4, column = 2)
 
 if __name__ == "__main__":
     root = tk.Tk()
