@@ -12,40 +12,50 @@ from sklearn import datasets, linear_model
 import os
 
 class Scatter(graph.Graph):
+    """The scatter object represents a scatter plot."""
+
     def __init__(self, filepath):
+        """Inits the Scatter object using the filepath.
+
+        Args:
+            filepath: a string specifying the filepath of where the file we want is located.
+        """
+
         super().__init__(self, filepath)
         super().set_image(None)
         self.generator = fng.Name_Generator()
 
-    def generate(self, column1, column2, title=None, color='red'):
-        # check to see if the given columns actually exist in the csv file.
-        if column1 not in super().get_data().columns:
-            raise ValueError(column1 + " cannot be found!")
-        if column2 not in super().get_data().columns:
-            raise ValueError(column2 + " cannot be found!")
-        if column2 == column1:
-            raise ValueError("Both columns cannot be the same!")
+    def generate(self, column1, column2, ax, title=None):
+        """Creates the scatter plot based on the two given columns.
 
-        super().change_color(color) # set the color of the graph based on the color that was given
+        Args:
+            column1: a string specifying the name of the first column to represent x axis.
+            column2: a string specifying the name of the second column to represent the y axis.
+            title: a string specifying the title of the graph.
+            ax: a subplot on which the graph will be drawn on.
 
-        # generate the name for the scatter plot
+        Returns:
+            A a tuple of size 2 containing the figure of the graph and its subplot. Both are needed
+            to draw the figure in a canvas when using tkinter.
+        """
+
+        # Generates the name for the scatter plot.
         name = self.generator.generate_name(super().get_file_path(), column1, "scatter")
-        super().set_image_name(name)  # send that name to the graph object
+        super().set_image_name(name)
 
-        # using the column name, strip the values from each column using pandas
+        # Using the column name, strips the values from each column using pandas.
         col1values = self.data[column1]
         col2values = self.data[column2]
-
-        # ----------------------- create the scatter plot ---------------------- #
-        plt.figure()
-        plt.plot(col1values, col2values, 'ro', color=color)
-        plt.xlabel(column1)
-        plt.ylabel(column2)
-        plt.savefig(name)
+        
+        ax.plot(col1values, col2values, 'ro')
+        ax.set_xlabel(column1)
+        ax.set_ylabel(column2)
+        
+        # If the title was given, it will be assigned to the figure.
         if title != None:
-            plt.title(title)
-        super().set_image(Image.open(name))  # update the self.image of the graph by giving it a img object
-        os.remove(name) # remove the image once we're done with it
+            ax.set_title(title)
+
+        return ax
 
     def lin_generate(self, column1, column2, title=None, color='blue'):
         """Generates a linear model. This is just like a regular scatter plot but with a
@@ -88,7 +98,7 @@ class Scatter(graph.Graph):
         plt.plot(column_x_test, regr.predict(column_x_test), color='blue', linewidth=3)
 
         plt.xticks(())
-        lt.yticks(())
+        plt.yticks(())
 
         plt.show()
 
