@@ -7,6 +7,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 # implement the default mpl key bindings
 # from matplotlib.backend_bases import key_press_handler
 
+import histogram as hist
 
 from matplotlib.figure import Figure
 
@@ -14,7 +15,6 @@ from tkinter import *
 import tkinter as tk
 import tkinter.constants
 import tkinter.filedialog as tkFileDialog
-from PIL import Image, ImageTk
 
 # master = parent
 
@@ -145,10 +145,14 @@ class Application(tk.Frame):
             self.a - ? - ?????
             self.canvas - FigureCanvasTkAgg - tkinter widget that holds figure"""
 
+        my_hist = hist.Histogram('../test/Iris.csv')        # you may want to put this somewhere else, this was for testing
+        test = my_hist.generate('SepalWidthCm')             # this too
+        self.f, self.a = test                               # check what the generate() function returns. It returns the figure and the subplot
+                                                            # so you don't need the objects on lines 153 and 154 and i generate the subplot so get rid of 155 too.
 
-        self.f = Figure(figsize = (4,2), dpi = 100)
-        self.a = self.f.add_subplot(111)
-        self.a.plot([1,2,3,4,5,6,7,8],[5,6,1,3,8,9,3,5])
+        # self.f = Figure(figsize = (4,2), dpi = 100)
+        # self.a = self.f.add_subplot(111)
+        # self.a.plot([1,2,3,4,5,6,7,8],[5,6,1,3,8,9,3,5])
 
         self.canvas = FigureCanvasTkAgg(self.f, master=self)
         self.canvas.get_tk_widget().grid(column=3, row=1, rowspan=5, sticky="nesw")
