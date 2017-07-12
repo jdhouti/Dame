@@ -44,11 +44,11 @@ class Application(tk.Frame):
 
     def initialize_analysis(self):
         """Load all analysis objects needed
-            self.analysis_object - Data_Object - Used to handle column manipulation on GUI
+            self.analysis_object - DataObject - Used to handle column manipulation on GUI
             self.histogram_object - Histogram - Handles generation of histogram and manipulation"""
 
 
-        self.analysis_object = do.Data_Object(self.filepath)
+        self.analysis_object = do.DataObject(self.filepath)
         self.histogram_object = hist.Histogram(self.filepath)
 
         # update column selectors with column names from file

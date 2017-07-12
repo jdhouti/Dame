@@ -6,13 +6,21 @@
 
 import pandas as pd
 import matplotlib
-matplotlib.use("TkAgg")
 from matplotlib import pyplot as plt
-from PIL import Image
 import file_name_generator as fng
-generator = fng.Name_Generator()
 
-class Data_Object:
+matplotlib.use("TkAgg")
+GENERATOR = fng.Name_Generator()
+
+class DataObject(object):
+    """Represents the data_object which is an object containing
+    any kind of data.
+
+    Attributes:
+        filepath: represents the filepath of the file containing the data.
+        data: the data from the file but compiled using a the panda package.
+    """
+
     def __init__(self, filepath):
         self.filepath = filepath
         # this will continue working as long as the only permitted files are .csv files.
@@ -20,10 +28,11 @@ class Data_Object:
 
     def get_data(self):
         """Returns the data as a panda series."""
+
         return self.data
 
     def get_num_columns(self):
-        """Will return the data type as a string of a given panda series."""
+        """Will return the data type as a string of a given panda series. """
 
         num_cols = []
         for col in self.data.columns:

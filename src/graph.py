@@ -5,7 +5,7 @@
 
 import data_object as do
 
-class Graph(do.Data_Object):
+class Graph(do.DataObject):
     def __init__(self, graphType, filepath):
         super().__init__(filepath)
         self.type = graphType
