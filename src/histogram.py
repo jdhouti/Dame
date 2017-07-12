@@ -4,9 +4,9 @@
 # Python 3.6.1
 
 import graph
-from PIL import Image
 import file_name_generator as fng
 import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
 import os
 
 class Histogram(graph.Graph):
@@ -16,32 +16,43 @@ class Histogram(graph.Graph):
         self.generator = fng.Name_Generator()
 
     def generate(self, column, bins=None, title=None, color='red'):
-        """Will generate the graph based on the given information."""
-        # check for any values that should not be accepted. The column should be in the dataframe
-        if column not in super().get_data().columns:
-            raise ValueError("Column cannot be found.")
+        """Creates the graph based on the given information.
+            name - STRING - the name of the file that is generated. This is used in the event that it is saved.
+            values - DataFrame - the values in the column that we want to create a histogram for."""
 
-        if bins == None:   # bins will get initiated to "missing" in the parameter if not assigned a number.
+        fig = Figure(figsize = (4,2), dpi = 100)
+        ax = fig.add_subplot(111)
+
+        # Ensures that bins is a positive number. If bins is not given, the plot will determine
+        # the amount of bins with respect to the given column.
+        if bins == None:
             pass
         elif bins <= 0:
             raise ValueError("The amount of bins should be a positive number.")
 
-        # generate the name of the histogram file
+        # Generate the name of the histogram file and assign it to the super class.
         name = self.generator.generate_name(super().get_file_path(), column, "histogram")
         super().set_image_name(name)
 
-        # ----------------------- begin making histogram ----------------------- #
-        values = super().get_data()[column]  # values in the column you want to graph
-        # if the user did not give any bins, let the .hist() function determine it
-        plt.figure()
+        # ----------------------------- begin making histogram ----------------------------- #
+        
+        # Obtain the values that the user desires to graph.
+        values = super().get_data()[column]
+
+        # This is where the histogram function determines the amount of bins if not given any.
         if bins == None:
-            plt.hist(values, ec='black', color=color)
+            ax.hist(values, ec='black', color=color)
         else:
-            plt.hist(values, bins=bins, ec='black', color=color)
-        plt.xlabel(column)
-        plt.ylabel("Quantity")
+            ax.hist(values, bins=bins, ec='black', color=color)
+
+        ax.set_xlabel(column)
+        ax.set_ylabel("Quantity")
+
+        # If a title is given, assign the plot title with the .title() function.
         if title != None:
-            plt.title(title)
-        plt.savefig(name)
-        super().set_image(Image.open(name))
-        os.remove(name) # delete the file
+            ax.set_title(title)
+
+        return (fig, ax)
+
+obj1 = Histogram("../test/Iris.csv")
+obj1.generate('SepalWidthCm')
