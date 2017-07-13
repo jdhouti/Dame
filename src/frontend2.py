@@ -12,10 +12,25 @@ import data_object as do
 import scatter as sc
 
 # tkinter imports
-from tkinter import *
-import tkinter as tk
-import tkinter.constants
-import tkinter.filedialog as tkFileDialog
+# from tkinter import *
+# import tkinter as tk
+
+from sys import version_info
+if version_info.major == 2:
+    # We are using Python 2.x
+    from Tkinter import *
+    import Tkinter as tk
+    import Tkinter, Tkconstants, tkFileDialog
+elif version_info.major == 3:
+    # We are using Python 3.x
+    from tkinter import *
+    import tkinter as tk
+    import tkinter.constants
+    import tkinter.filedialog as tkFileDialog
+
+
+# import tkinter.constants
+# import tkinter.filedialog as tkFileDialog
 
 # note: master = parent
 
