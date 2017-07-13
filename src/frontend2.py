@@ -187,7 +187,7 @@ class Application(tk.Frame):
             self.canvas - FigureCanvasTkAgg - tkinter widget that holds figure"""
 
 
-        self.f = Figure(figsize = (4,2), dpi = 100)
+        self.f = Figure(figsize = (10,5), dpi = 100)
         self.a = self.f.add_subplot(111)
 
         # leave as placeholder for now
