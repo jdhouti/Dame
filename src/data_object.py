@@ -47,6 +47,23 @@ class DataObject(object):
 
         return self.filepath
 
+    def get_name(self):
+        """Returns the name of the file submitted by the users."""
+
+        name, counter = "", -1
+        if "/" not in self.filepath:
+            name = self.filepath
+        else:
+            while True:
+                # iterates through the string backwards
+                if self.filepath[counter] != "/":
+                    name = name + self.filepath[counter]
+                    counter -= 1
+                else:
+                    break
+
+        return name[::-1]
+
     def get_summary_statistics(self, *arg):
         """Create a summary of statistics for the given file using the describe
         method in the Pandas module. Takes in number of percentiles to return.
