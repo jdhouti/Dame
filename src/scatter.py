@@ -4,13 +4,13 @@
 # Python 3.6.1
 # /Users/Julien/Downloads
 
+import os
 import graph
 import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 import file_name_generator as fng
 from sklearn import datasets, linear_model
-import os
 
 class Scatter(graph.Graph):
     """The scatter object represents a scatter plot."""
@@ -76,14 +76,6 @@ class Scatter(graph.Graph):
         # Converts given columns into numpy arrays.
         column_x = super().get_data()[column1].values
         column_y = super().get_data()[column2].values
-
-        # Trains 95% of the data and tests 5%. Splits up the given 
-        # columns accordingly. 
-        column_x_train = column_x[:int(column_x.size * 0.95)]
-        column_x_test = column_x[-(column_x.size - int(column_x.size * 0.95)):]
-
-        column_y_train = column_y[:int(column_y.size * 0.95)]
-        column_y_test = column_y[-(column_y.size - int(column_y.size * 0.95)):]
 
         # Creates the training model.
         m, b = np.polyfit(column_x, column_y, 1)
