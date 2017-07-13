@@ -9,6 +9,7 @@ from matplotlib.figure import Figure
 # Dame imports
 import histogram as hist
 import data_object as do
+import scatter as sc
 
 # tkinter imports
 from tkinter import *
@@ -50,6 +51,7 @@ class Application(tk.Frame):
 
         self.analysis_object = do.DataObject(self.filepath)
         self.histogram_object = hist.Histogram(self.filepath)
+        self.scatter_object = sc.Scatter(self.filepath)
 
         # update column selectors with column names from file
         numerical_columns = self.analysis_object.get_num_columns()
@@ -127,7 +129,7 @@ class Application(tk.Frame):
         # histogram generated here - reference the canvas() method for the variable names to generate the plot
         print("Histogram with " + column_name + " x column to be generated")
         self.f = Figure(figsize = (4,2), dpi = 100)
-        self.a = fig.add_subplot(111)
+        self.a = self.f.add_subplot(111)
         self.a = self.histogram_object.generate(column_name, self.a)
         self.canvas = FigureCanvasTkAgg(self.f, master=self)
         self.canvas.get_tk_widget().grid(column=3, row=1, rowspan=5, sticky="nesw")
@@ -146,7 +148,6 @@ class Application(tk.Frame):
             self.y_column_selector.grid() 
             self.y_column_selector_is_visible = True
 
-        # generate scatter plot graph here - ACTUALLY MAKE METHOD show_scatter_plot() CALLED BY THE OPTIONMENU TO DO THAT
 
 
     def show_scatter_plot(self):
@@ -163,6 +164,12 @@ class Application(tk.Frame):
             print("Both columns are the same cannot plot")
         else:
             print("Scatter plot with " + x_column_name + " x column to be generated and " + y_column_name + " y column to be generated")
+            self.f = Figure(figsize = (4,2), dpi = 100)
+            self.a = self.f.add_subplot(111)
+            self.a = self.scatter_object.generate(x_column_name, y_column_name, self.a)
+            self.canvas = FigureCanvasTkAgg(self.f, master=self)
+            self.canvas.get_tk_widget().grid(column=3, row=1, rowspan=5, sticky="nesw")
+
 
 
     def create_quit_button(self):
@@ -179,6 +186,9 @@ class Application(tk.Frame):
             self.a - Plot - the plot in question.
             self.canvas - FigureCanvasTkAgg - tkinter widget that holds figure"""
 
+
+        self.f = Figure(figsize = (4,2), dpi = 100)
+        self.a = self.f.add_subplot(111)
 
         # leave as placeholder for now
         my_hist = hist.Histogram('../test/Iris.csv')        # you may want to put this somewhere else, this was for testing
