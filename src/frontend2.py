@@ -11,11 +11,26 @@ import histogram as hist
 import data_object as do
 import scatter as sc
 
-# tkinter imports
-from tkinter import *
-import tkinter as tk
-import tkinter.constants
-import tkinter.filedialog as tkFileDialog
+# tkinter imports - old imports only worked for python 3
+# from tkinter import *
+# import tkinter as tk
+# import tkinter.constants
+# import tkinter.filedialog as tkFileDialog
+
+
+# handle different python versions
+from sys import version_info
+if version_info.major == 2:
+    # We are using Python 2.x
+    from Tkinter import *
+    import Tkinter as tk
+    import Tkinter, Tkconstants, tkFileDialog
+elif version_info.major == 3:
+    # We are using Python 3.x
+    from tkinter import *
+    import tkinter as tk
+    import tkinter.constants
+    import tkinter.filedialog as tkFileDialog
 
 # note: master = parent
 
@@ -42,6 +57,7 @@ class Application(tk.Frame):
         self.create_y_column_selector()
         self.create_column_selector_label()
         self.create_show_visualization_button()
+        self.create_linear_regression_button()
 
     def initialize_analysis(self):
         """Load all analysis objects needed
@@ -107,7 +123,7 @@ class Application(tk.Frame):
             self.set_up_scatter_plot()
 
     def set_up_histogram(self):
-        """Makes sure x_column_selector is visible and hides y_column_selector """
+        """Makes sure x_column_selector is visible and hides y_column_selector and linear_regression_button is hidden """
 
 
         if self.x_column_selector_is_visible == False:
@@ -116,7 +132,9 @@ class Application(tk.Frame):
         if self.y_column_selector_is_visible == True:
             self.y_column_selector.grid_remove()
             self.y_column_selector_is_visible = False
-        # generate histogram graph here - ACTUALLY MAKE METHOD show_histogram() CALLED BY THE OPTIONMENU TO DO THAT
+        if self.linear_regression_button_isVisible == True:
+            self.linear_regression_button.grid_remove()
+            self.linear_regression_button_isVisible = False
 
     
 
@@ -128,7 +146,7 @@ class Application(tk.Frame):
         column_name = self.x_column_selected.get()
         # histogram generated here - reference the canvas() method for the variable names to generate the plot
         print("Histogram with " + column_name + " x column to be generated")
-        self.f = Figure(figsize = (4,2), dpi = 100)
+        self.f = Figure(figsize = (6,4), dpi = 100)
         self.a = self.f.add_subplot(111)
         self.a = self.histogram_object.generate(column_name, self.a)
         self.canvas = FigureCanvasTkAgg(self.f, master=self)
@@ -138,7 +156,7 @@ class Application(tk.Frame):
 
 
     def set_up_scatter_plot(self):
-        """Makes sure x_column_selector  y_column_selector are visible"""
+        """Makes sure x_column_selector, linear_regression_button, and y_column_selector are visible"""
 
 
         if self.x_column_selector_is_visible == False:
@@ -147,6 +165,9 @@ class Application(tk.Frame):
         if self.y_column_selector_is_visible == False:
             self.y_column_selector.grid() 
             self.y_column_selector_is_visible = True
+        if self.linear_regression_button_isVisible == False:
+            self.linear_regression_button.grid()
+            self.linear_regression_button_isVisible = True
 
 
 
@@ -163,13 +184,31 @@ class Application(tk.Frame):
         elif x_column_name == y_column_name:
             print("Both columns are the same cannot plot")
         else:
-            # print("Scatter plot with " + x_column_name + " x column to be generated and " + y_column_name + " y column to be generated")
-            self.f = Figure(figsize = (4,2), dpi = 100)
+            self.f = Figure(figsize = (6,4), dpi = 100)
             self.a = self.f.add_subplot(111)
             self.a = self.scatter_object.generate(x_column_name, y_column_name, self.a)
             self.canvas = FigureCanvasTkAgg(self.f, master=self)
             self.canvas.get_tk_widget().grid(column=3, row=1, rowspan=5, sticky="nesw")
 
+
+    def show_regression_scatter_plot(self):
+        """Generate scatter plot with a regression line
+            event - STRING - sent by self.x_column_selector or self.y_column_selector when a column is selected"""
+
+
+        x_column_name = self.x_column_selected.get()
+        y_column_name = self.y_column_selected.get()
+        # scatter plot generated here - reference the canvas() method for the variable names to generate the plot
+        if x_column_name == "" or y_column_name == "":
+            print("Both columns are not filled wont generate scatter plot")
+        elif x_column_name == y_column_name:
+            print("Both columns are the same cannot plot")
+        else:
+            self.f = Figure(figsize = (4,2), dpi = 100)
+            self.a = self.f.add_subplot(111)
+            self.a = self.scatter_object.lin_generate(x_column_name, y_column_name, self.a)
+            self.canvas = FigureCanvasTkAgg(self.f, master=self)
+            self.canvas.get_tk_widget().grid(column=3, row=1, rowspan=5, sticky="nesw")
 
 
     def create_quit_button(self):
@@ -187,7 +226,11 @@ class Application(tk.Frame):
             self.canvas - FigureCanvasTkAgg - tkinter widget that holds figure"""
 
 
+<<<<<<< HEAD
         self.f = Figure(figsize = (10,5), dpi = 100)
+=======
+        self.f = Figure(figsize = (6,4), dpi = 100)
+>>>>>>> 6a89b605a425f207c09d38796cd127f7e160fc37
         self.a = self.f.add_subplot(111)
 
         # leave as placeholder for now
@@ -200,7 +243,7 @@ class Application(tk.Frame):
         # self.a.plot([1,2,3,4,5,6,7,8],[5,6,1,3,8,9,3,5])
 
         self.canvas = FigureCanvasTkAgg(self.f, master=self)
-        self.canvas.get_tk_widget().grid(column=3, row=1, rowspan=5, sticky="nesw")
+        self.canvas.get_tk_widget().grid(column=3, row=1, rowspan=5, columnspan = 6, sticky="nesw")
 
         self.toolbar = NavigationToolbar2TkAgg(self.canvas, self.master) #do we want to keep this? it allows the user to save the plot so probs useful
 
@@ -258,9 +301,20 @@ class Application(tk.Frame):
         self.show_visualization_button = Button(self, text='Generate Plot', command = self.show_visualization)
         self.show_visualization_button.grid(row = 4, column = 2)
 
+    def create_linear_regression_button(self):
+        """Create button used to generate scatter plots with linear regression line applied
+        self.linear_regression_button - Button - click to show plot with regression line
+        self.linear_regression_button_isVisible - BOOLEAN - True if button visible on screen"""
+
+
+        self.linear_regression_button = Button(self, text = 'Apply Linear Regression', command = self.show_regression_scatter_plot)
+        self.linear_regression_button.grid(row = 5, column = 2)
+        self.linear_regression_button.grid_remove()
+        self.linear_regression_button_isVisible = False
+
 if __name__ == "__main__":
     root = tk.Tk()
-    root.geometry("800x600+10+10")
+    root.geometry("1200x800+10+10")
     root.resizable(0, 0)
     Application(root).pack(side=tk.TOP)
     root.mainloop()
