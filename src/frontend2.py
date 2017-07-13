@@ -11,10 +11,14 @@ import histogram as hist
 import data_object as do
 import scatter as sc
 
-# tkinter imports
+# tkinter imports - old imports only worked for python 3
 # from tkinter import *
 # import tkinter as tk
+# import tkinter.constants
+# import tkinter.filedialog as tkFileDialog
 
+
+# handle different python versions
 from sys import version_info
 if version_info.major == 2:
     # We are using Python 2.x
@@ -27,10 +31,6 @@ elif version_info.major == 3:
     import tkinter as tk
     import tkinter.constants
     import tkinter.filedialog as tkFileDialog
-
-
-# import tkinter.constants
-# import tkinter.filedialog as tkFileDialog
 
 # note: master = parent
 
@@ -146,7 +146,7 @@ class Application(tk.Frame):
         column_name = self.x_column_selected.get()
         # histogram generated here - reference the canvas() method for the variable names to generate the plot
         print("Histogram with " + column_name + " x column to be generated")
-        self.f = Figure(figsize = (4,2), dpi = 100)
+        self.f = Figure(figsize = (6,4), dpi = 100)
         self.a = self.f.add_subplot(111)
         self.a = self.histogram_object.generate(column_name, self.a)
         self.canvas = FigureCanvasTkAgg(self.f, master=self)
@@ -184,7 +184,7 @@ class Application(tk.Frame):
         elif x_column_name == y_column_name:
             print("Both columns are the same cannot plot")
         else:
-            self.f = Figure(figsize = (4,2), dpi = 100)
+            self.f = Figure(figsize = (6,4), dpi = 100)
             self.a = self.f.add_subplot(111)
             self.a = self.scatter_object.generate(x_column_name, y_column_name, self.a)
             self.canvas = FigureCanvasTkAgg(self.f, master=self)
@@ -226,7 +226,7 @@ class Application(tk.Frame):
             self.canvas - FigureCanvasTkAgg - tkinter widget that holds figure"""
 
 
-        self.f = Figure(figsize = (4,2), dpi = 100)
+        self.f = Figure(figsize = (6,4), dpi = 100)
         self.a = self.f.add_subplot(111)
 
         # leave as placeholder for now
@@ -239,7 +239,7 @@ class Application(tk.Frame):
         # self.a.plot([1,2,3,4,5,6,7,8],[5,6,1,3,8,9,3,5])
 
         self.canvas = FigureCanvasTkAgg(self.f, master=self)
-        self.canvas.get_tk_widget().grid(column=3, row=1, rowspan=5, sticky="nesw")
+        self.canvas.get_tk_widget().grid(column=3, row=1, rowspan=5, columnspan = 6, sticky="nesw")
 
         self.toolbar = NavigationToolbar2TkAgg(self.canvas, self.master) #do we want to keep this? it allows the user to save the plot so probs useful
 
@@ -310,7 +310,7 @@ class Application(tk.Frame):
 
 if __name__ == "__main__":
     root = tk.Tk()
-    root.geometry("800x600+10+10")
+    root.geometry("1200x800+10+10")
     root.resizable(0, 0)
     Application(root).pack(side=tk.TOP)
     root.mainloop()
