@@ -169,7 +169,6 @@ class Application(tk.Frame):
         elif x_column_name == y_column_name:
             print("Both columns are the same cannot plot")
         else:
-            # print("Scatter plot with " + x_column_name + " x column to be generated and " + y_column_name + " y column to be generated")
             self.f = Figure(figsize = (4,2), dpi = 100)
             self.a = self.f.add_subplot(111)
             self.a = self.scatter_object.generate(x_column_name, y_column_name, self.a)
@@ -190,7 +189,6 @@ class Application(tk.Frame):
         elif x_column_name == y_column_name:
             print("Both columns are the same cannot plot")
         else:
-            # print("Scatter plot with " + x_column_name + " x column to be generated and " + y_column_name + " y column to be generated")
             self.f = Figure(figsize = (4,2), dpi = 100)
             self.a = self.f.add_subplot(111)
             self.a = self.scatter_object.lin_generate(x_column_name, y_column_name, self.a)
@@ -286,8 +284,8 @@ class Application(tk.Frame):
 
     def create_linear_regression_button(self):
         """Create button used to generate scatter plots with linear regression line applied
-             self.linear_regression_button - Button - click to show plot with regression line
-             self.linear_regression_button_isVisible - BOOLEAN - True if button visible on screen"""
+        self.linear_regression_button - Button - click to show plot with regression line
+        self.linear_regression_button_isVisible - BOOLEAN - True if button visible on screen"""
 
 
         self.linear_regression_button = Button(self, text = 'Apply Linear Regression', command = self.show_regression_scatter_plot)
