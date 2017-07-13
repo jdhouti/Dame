@@ -163,7 +163,7 @@ class Application(tk.Frame):
         elif x_column_name == y_column_name:
             print("Both columns are the same cannot plot")
         else:
-            print("Scatter plot with " + x_column_name + " x column to be generated and " + y_column_name + " y column to be generated")
+            # print("Scatter plot with " + x_column_name + " x column to be generated and " + y_column_name + " y column to be generated")
             self.f = Figure(figsize = (4,2), dpi = 100)
             self.a = self.f.add_subplot(111)
             self.a = self.scatter_object.generate(x_column_name, y_column_name, self.a)
