@@ -6,6 +6,18 @@
 import data_object as do
 
 class Graph(do.DataObject):
+    """Contains a data object that is a graph.
+
+    Attributes:
+        type: a string specifying the type of the graph.
+        image: an image that represents the graph.
+        image_name: a string that specifies the name of the image.
+        colors: a list of strings that contains all of the different colors
+            available for graphs.
+        current_color: a string that represents the current default color
+            for all graphs.
+    """
+    
     def __init__(self, graphType, filepath):
         super().__init__(filepath)
         self.type = graphType
