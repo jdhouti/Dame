@@ -68,9 +68,10 @@ class Application(tk.Frame):
         self.analysis_object = do.DataObject(self.filepath)
         self.histogram_object = hist.Histogram(self.filepath)
         self.scatter_object = sc.Scatter(self.filepath)
-        self.file_name = Label(self, text="Filename:\n" + self.analysis_object.get_name(), foreground="red",
-                               borderwidth=2, relief="groove", wraplength=70)
-        self.file_name.grid(row = 4, column = 1, sticky = 'nesw')
+        # self.file_name_label = Label(self, text="Filename:\n" + self.analysis_object.get_name(), foreground="red",
+        #                        borderwidth=2, relief="groove", wraplength=70)
+        # self.file_name_label.grid(row = 4, column = 1, sticky = 'nesw')
+        self.master.title("DAME - " + self.analysis_object.get_name()) #IMO this looks nicer
 
         # update column selectors with column names from file
         numerical_columns = self.analysis_object.get_num_columns()
