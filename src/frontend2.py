@@ -68,6 +68,9 @@ class Application(tk.Frame):
         self.analysis_object = do.DataObject(self.filepath)
         self.histogram_object = hist.Histogram(self.filepath)
         self.scatter_object = sc.Scatter(self.filepath)
+        self.file_name = Label(self, text="Filename:\n" + self.analysis_object.get_name(), foreground="red",
+                               borderwidth=2, relief="groove", wraplength=70)
+        self.file_name.grid(row = 4, column = 1, sticky = 'nesw')
 
         # update column selectors with column names from file
         numerical_columns = self.analysis_object.get_num_columns()
@@ -151,7 +154,6 @@ class Application(tk.Frame):
         self.a = self.histogram_object.generate(column_name, self.a)
         self.canvas = FigureCanvasTkAgg(self.f, master=self)
         self.canvas.get_tk_widget().grid(column=3, row=1, rowspan=5, sticky="nesw")
-        print("Did it show anything onscreen?")
 
 
 
@@ -204,7 +206,7 @@ class Application(tk.Frame):
         elif x_column_name == y_column_name:
             print("Both columns are the same cannot plot")
         else:
-            self.f = Figure(figsize = (4,2), dpi = 100)
+            self.f = Figure(figsize = (6,4), dpi = 100)
             self.a = self.f.add_subplot(111)
             self.a = self.scatter_object.lin_generate(x_column_name, y_column_name, self.a)
             self.canvas = FigureCanvasTkAgg(self.f, master=self)
@@ -228,15 +230,6 @@ class Application(tk.Frame):
 
         self.f = Figure(figsize = (6,4), dpi = 100)
         self.a = self.f.add_subplot(111)
-
-        # leave as placeholder for now
-        my_hist = hist.Histogram('../test/Iris.csv')        # you may want to put this somewhere else, this was for testing
-        self.a = my_hist.generate('SepalWidthCm', self.a)             # this too
-                                                            # so you don't need the objects on lines 153 and 154 and i generate the subplot so get rid of 155 too.
-
-        # self.f = Figure(figsize = (4,2), dpi = 100)
-        # self.a = self.f.add_subplot(111)
-        # self.a.plot([1,2,3,4,5,6,7,8],[5,6,1,3,8,9,3,5])
 
         self.canvas = FigureCanvasTkAgg(self.f, master=self)
         self.canvas.get_tk_widget().grid(column=3, row=1, rowspan=5, columnspan = 6, sticky="nesw")
@@ -303,14 +296,14 @@ class Application(tk.Frame):
         self.linear_regression_button_isVisible - BOOLEAN - True if button visible on screen"""
 
 
-        self.linear_regression_button = Button(self, text = 'Apply Linear Regression', command = self.show_regression_scatter_plot)
+        self.linear_regression_button = Button(self, text = 'Apply Linear Reg', command = self.show_regression_scatter_plot)
         self.linear_regression_button.grid(row = 5, column = 2)
         self.linear_regression_button.grid_remove()
         self.linear_regression_button_isVisible = False
 
 if __name__ == "__main__":
     root = tk.Tk()
-    root.geometry("1200x800+10+10")
+    root.geometry("875x475+10+10")
     root.resizable(0, 0)
     Application(root).pack(side=tk.TOP)
     root.mainloop()

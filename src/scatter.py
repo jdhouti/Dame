@@ -80,7 +80,7 @@ class Scatter(graph.Graph):
         # Creates the training model.
         m, b = np.polyfit(column_x, column_y, 1)
 
-        ax.scatter(column_x, column_y,  color='black')
+        ax.scatter(column_x, column_y,  color='red')
         ax.plot(column_x, m * column_x + b, '-')
 
         return ax

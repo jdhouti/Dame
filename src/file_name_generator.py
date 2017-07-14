@@ -4,7 +4,7 @@
 
 import random
 
-class Name_Generator:
+class Name_Generator(object):
     def generate_name(self, filepath, column, analysis):
         """Generates a name for a given filepath
 
