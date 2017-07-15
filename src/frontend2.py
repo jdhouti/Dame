@@ -68,9 +68,6 @@ class Application(tk.Frame):
         self.analysis_object = do.DataObject(self.filepath)
         self.histogram_object = hist.Histogram(self.filepath)
         self.scatter_object = sc.Scatter(self.filepath)
-        # self.file_name_label = Label(self, text="Filename:\n" + self.analysis_object.get_name(), foreground="red",
-        #                        borderwidth=2, relief="groove", wraplength=70)
-        # self.file_name_label.grid(row = 4, column = 1, sticky = 'nesw')
         self.master.title("DAME - " + self.analysis_object.get_name()) #IMO this looks nicer
 
         # update column selectors with column names from file
@@ -112,7 +109,7 @@ class Application(tk.Frame):
 
         OPTIONS = ['Histogram', 'Scatter Plot']
         self.var = StringVar(self.master)
-        self.var.set("")
+        self.var.set("Analysis")
         self.visualization_selector = OptionMenu(self, self.var, *OPTIONS, command = self.determine_visualization_type)
         self.visualization_selector.grid(row = 2, column = 1, sticky = 'nesw')
 
@@ -247,7 +244,7 @@ class Application(tk.Frame):
         # OPTIONS = self.analysis_object.get_num_columns() #replace this with actual columns from the data object
         self.X_OPTIONS = [""]
         self.x_column_selected = StringVar(self.master)
-        self.x_column_selected.set("")
+        self.x_column_selected.set("x column")
         self.x_column_selector = OptionMenu(self, self.x_column_selected, *self.X_OPTIONS)
         self.x_column_selector.grid(row = 2, column = 2, sticky = 'nesw')
         self.x_column_selector.grid_remove()
@@ -263,7 +260,7 @@ class Application(tk.Frame):
         # OPTIONS = self.analysis_object.get_num_columns() #replace this with actual columns from the data object
         self.Y_OPTIONS = [""]
         self.y_column_selected = StringVar(self.master)
-        self.y_column_selected.set("")
+        self.y_column_selected.set("y column")
         self.y_column_selector = OptionMenu(self, self.y_column_selected, *self.Y_OPTIONS)
         self.y_column_selector.grid(row = 3, column = 2, sticky = 'nesw')
         self.y_column_selector.grid_remove()
