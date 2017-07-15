@@ -64,3 +64,8 @@ class Histogram(graph.Graph):
             ax.set_title(title)
 
         return ax
+
+test = Figure(figsize = (6,4), dpi = 100)
+test2 = test.add_subplot(111)
+obj1 = Histogram('../test/Iris.csv')
+obj1.generate('SepalWidthCm', test2)
