@@ -82,6 +82,8 @@ class Scatter(graph.Graph):
 
         ax.scatter(column_x, column_y,  color='red')
         ax.plot(column_x, m * column_x + b, '-')
+        ax.set_xlabel(column1)
+        ax.set_ylabel(column2)
 
         return ax
 
