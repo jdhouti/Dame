@@ -339,7 +339,7 @@ class Application(tk.Frame):
         self.same_columns_warning_label_isVisible - BOOLEAN - True if same_columns_warning_label visible on screen"""
 
 
-        self.same_columns_warning_label = Label(self, text='Same Column Selected Twice')
+        self.same_columns_warning_label = Label(self, text='Same Column Selected Twice', fg = 'red')
         self.same_columns_warning_label.grid(row = 6, column = 2)
         self.same_columns_warning_label.grid_remove()
         self.same_columns_warning_label_isVisible = False
