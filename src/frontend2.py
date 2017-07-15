@@ -58,6 +58,7 @@ class Application(tk.Frame):
         self.create_column_selector_label()
         self.create_show_visualization_button()
         self.create_linear_regression_button()
+        self.create_same_columns_warning_label()
 
     def initialize_analysis(self):
         """Load all analysis objects needed
@@ -133,12 +134,18 @@ class Application(tk.Frame):
         if self.x_column_selector_is_visible == False:
             self.x_column_selector.grid()
             self.x_column_selector_is_visible = True
+        
         if self.y_column_selector_is_visible == True:
             self.y_column_selector.grid_remove()
             self.y_column_selector_is_visible = False
+        
         if self.linear_regression_button_isVisible == True:
             self.linear_regression_button.grid_remove()
             self.linear_regression_button_isVisible = False
+        
+        if self.same_columns_warning_label_isVisible == True:
+            self.same_columns_warning_label.grid_remove()
+            self.same_columns_warning_label_isVisible = False
 
     
 
@@ -165,12 +172,18 @@ class Application(tk.Frame):
         if self.x_column_selector_is_visible == False:
             self.x_column_selector.grid() 
             self.x_column_selector_is_visible = True
+        
         if self.y_column_selector_is_visible == False:
             self.y_column_selector.grid() 
             self.y_column_selector_is_visible = True
+        
         if self.linear_regression_button_isVisible == False:
             self.linear_regression_button.grid()
             self.linear_regression_button_isVisible = True
+        
+        if self.same_columns_warning_label_isVisible == True:
+            self.same_columns_warning_label.grid_remove()
+            self.same_columns_warning_label_isVisible = False
 
 
 
@@ -185,8 +198,16 @@ class Application(tk.Frame):
         if x_column_name == "" or y_column_name == "":
             print("Both columns are not filled wont generate scatter plot")
         elif x_column_name == y_column_name:
-            print("Both columns are the same cannot plot")
+            # print("Both columns are the same cannot plot")
+            self.same_columns_warning_label.grid()
+            self.same_columns_warning_label_isVisible = True
         else:
+             # make sure warning label isnt there
+            if self.same_columns_warning_label_isVisible == True:
+                self.same_columns_warning_label.grid_remove()
+                self.same_columns_warning_label_isVisible = False
+
+
             self.f = Figure(figsize = (6,4), dpi = 100)
             self.a = self.f.add_subplot(111)
             self.a = self.scatter_object.generate(x_column_name, y_column_name, self.a)
@@ -205,8 +226,17 @@ class Application(tk.Frame):
         if x_column_name == "" or y_column_name == "":
             print("Both columns are not filled wont generate scatter plot")
         elif x_column_name == y_column_name:
-            print("Both columns are the same cannot plot")
+            # print("Both columns are the same cannot plot")
+            self.same_columns_warning_label.grid()
+            self.same_columns_warning_label_isVisible = True
         else:
+
+            # make sure warning label isnt there
+            if self.same_columns_warning_label_isVisible == True:
+                self.same_columns_warning_label.grid_remove()
+                self.same_columns_warning_label_isVisible = False
+
+
             self.f = Figure(figsize = (6,4), dpi = 100)
             self.a = self.f.add_subplot(111)
             self.a = self.scatter_object.lin_generate(x_column_name, y_column_name, self.a)
@@ -301,6 +331,18 @@ class Application(tk.Frame):
         self.linear_regression_button.grid(row = 5, column = 2)
         self.linear_regression_button.grid_remove()
         self.linear_regression_button_isVisible = False
+
+
+    def create_same_columns_warning_label(self):
+        """Create Label that alerts user if they have selected the same column for 2 different axis
+        self.same_columns_warning_label - Label - alert user if same column selected twice
+        self.same_columns_warning_label_isVisible - BOOLEAN - True if same_columns_warning_label visible on screen"""
+
+
+        self.same_columns_warning_label = Label(self, text='Same Column Selected Twice')
+        self.same_columns_warning_label.grid(row = 6, column = 2)
+        self.same_columns_warning_label.grid_remove()
+        self.same_columns_warning_label_isVisible = False
 
 if __name__ == "__main__":
     root = tk.Tk()
