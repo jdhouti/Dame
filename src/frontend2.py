@@ -346,4 +346,10 @@ if __name__ == "__main__":
     root.geometry("875x475+10+10")
     root.resizable(0, 0)
     Application(root).pack(side=tk.TOP)
-    root.mainloop()
+    # root.mainloop()
+    while True:
+        try:
+            root.mainloop()
+            break
+        except UnicodeDecodeError:
+            pass
