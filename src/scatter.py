@@ -8,7 +8,6 @@ import os
 import graph
 import numpy as np
 import matplotlib.pyplot as plt
-from PIL import Image
 import file_name_generator as fng
 from sklearn import datasets, linear_model
 

@@ -1,8 +1,8 @@
 import sys
 # matplotlib imports
+from numpy import arange, sin, pi, cos, tan
 import matplotlib
 matplotlib.use('TkAgg')
-from numpy import arange, sin, pi, cos, tan
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 from matplotlib.figure import Figure
 
