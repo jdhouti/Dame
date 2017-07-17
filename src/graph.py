@@ -23,8 +23,9 @@ class Graph(do.DataObject):
         self.type = graphType
         self.image = None
         self.image_name = None
-        self.colors = ['black', 'blue', 'green', 'red', 'yellow', 'orange']
-        self.current_color = self.colors[3]
+        colors = ['black', 'blue', 'green', 'red', 'yellow', 'orange']
+        self.colors = colors
+        self.current_color = colors[3]
 
     def get_type(self):
         """Returns the type of the graph (String)."""
@@ -46,12 +47,6 @@ class Graph(do.DataObject):
 
         return self.current_color
 
-    @staticmethod
-    def get_colors(self):
-        """Returns the available colors for the graph."""
-
-        return self.colors
-
     def set_image(self, img):
         """Sets the image of the generated graph."""
 
@@ -72,3 +67,7 @@ class Graph(do.DataObject):
             raise ValueError("Color not found.")
         else:
             self.current_color = self.colors[self.colors.index(color)]
+
+# this is a test material
+# obj1 = Graph("histogram", '/Users/Julien/Downloads/Iris.csv')
+# print(obj1.colors)
