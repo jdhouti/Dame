@@ -342,8 +342,7 @@ class Application(tk.Frame):
         self.plot_color_selected - StringVar - stores which color is currently selected
         self.plot_color_selector - OptionMenu - allows user to choose color and triggers set_plot_color to change the color"""
 
-
-        self.COLOR_OPTIONS = g.get_colors()
+        self.COLOR_OPTIONS = ['black', 'blue', 'green', 'red', 'yellow', 'orange'] 
 
         self.plot_color_selected = StringVar(self.master)
         self.plot_color_selected.set("red")
@@ -353,8 +352,9 @@ class Application(tk.Frame):
         self.plot_color_selector.grid(row = 3, column = 1, sticky = 'nesw')
     
     def set_plot_color(self, event):
-        # if change_color doesn't turn out working just create a 'color' instance field, set the color in this method
-        # and then use this color instance field whenever a generate() method is called for a plot
+        """sets instance field that holds color of the plots
+        self.plot_color - STRING - stores color value for plots e.g. 'red' or 'green'"""
+
 
         self.plot_color = event
         
