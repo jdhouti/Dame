@@ -46,6 +46,7 @@ class Graph(do.DataObject):
 
         return self.current_color
 
+    @staticmethod
     def get_colors(self):
         """Returns the available colors for the graph."""
 

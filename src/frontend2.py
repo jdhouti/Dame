@@ -10,6 +10,7 @@ from matplotlib.figure import Figure
 import histogram as hist
 import data_object as do
 import scatter as sc
+import graph as g
 
 # handle different python versions
 from sys import version_info
@@ -342,7 +343,7 @@ class Application(tk.Frame):
         self.plot_color_selector - OptionMenu - allows user to choose color and triggers set_plot_color to change the color"""
 
 
-        self.COLOR_OPTIONS = ['black', 'blue', 'green', 'red', 'yellow', 'orange']
+        self.COLOR_OPTIONS = g.get_colors()
 
         self.plot_color_selected = StringVar(self.master)
         self.plot_color_selected.set("red")
