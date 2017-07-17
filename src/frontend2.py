@@ -11,13 +11,6 @@ import histogram as hist
 import data_object as do
 import scatter as sc
 
-# tkinter imports - old imports only worked for python 3
-# from tkinter import *
-# import tkinter as tk
-# import tkinter.constants
-# import tkinter.filedialog as tkFileDialog
-
-
 # handle different python versions
 from sys import version_info
 if version_info.major == 2:

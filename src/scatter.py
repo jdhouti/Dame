@@ -11,6 +11,10 @@ import matplotlib.pyplot as plt
 import file_name_generator as fng
 from sklearn import datasets, linear_model
 
+# imports for tests, can delete
+from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
+
 class Scatter(graph.Graph):
     """The scatter object represents a scatter plot."""
 
@@ -25,7 +29,7 @@ class Scatter(graph.Graph):
         super().set_image(None)
         self.generator = fng.Name_Generator()
 
-    def generate(self, column1, column2, ax, title=None):
+    def generate(self, column1, column2, ax, title=None, color=None):
         """Creates the scatter plot based on the two given columns.
 
         Args:
@@ -43,11 +47,17 @@ class Scatter(graph.Graph):
         name = self.generator.generate_name(super().get_file_path(), column1, "scatter")
         super().set_image_name(name)
 
+        # Adjust the color of the graph
+        try:
+            super().set_color(color)
+        except ValueError:
+            print("The given color is unavailable.")
+
         # Using the column name, strips the values from each column using pandas.
         col1values = self.data[column1]
         col2values = self.data[column2]
         
-        ax.plot(col1values, col2values, 'ro')
+        ax.plot(col1values, col2values, 'ro', color=super().get_current_color())
         ax.set_xlabel(column1)
         ax.set_ylabel(column2)
         
@@ -57,7 +67,7 @@ class Scatter(graph.Graph):
 
         return ax
 
-    def lin_generate(self, column1, column2, ax, title=None):
+    def lin_generate(self, column1, column2, ax, title=None, color=None):
         """Generates a linear model. This is a regular scatter plot but with a
         linear regression line passing through it.
 
@@ -71,7 +81,12 @@ class Scatter(graph.Graph):
             An altered subplot object with a linear line that can be used in 
             the canvas method for the tkinter interface.
         """
-
+        # Adjust the color of the graph
+        try:
+            super().set_color(color)
+        except ValueError:
+            print("The given color is unavailable.")
+        
         # Converts given columns into numpy arrays.
         column_x = super().get_data()[column1].values
         column_y = super().get_data()[column2].values
@@ -79,10 +94,16 @@ class Scatter(graph.Graph):
         # Creates the training model.
         m, b = np.polyfit(column_x, column_y, 1)
 
-        ax.scatter(column_x, column_y,  color='red')
+        ax.scatter(column_x, column_y,  color=super().get_current_color())
         ax.plot(column_x, m * column_x + b, '-')
         ax.set_xlabel(column1)
         ax.set_ylabel(column2)
 
         return ax
 
+# This is the test part, you can delete everything below
+f = plt.figure(figsize = (6,4), dpi = 100)
+a = f.add_subplot(111)
+obj1 = Scatter('/Users/Julien/Downloads/Iris.csv')
+a = obj1.generate('SepalLengthCm', 'SepalWidthCm', a, color='greeen')
+plt.show()
