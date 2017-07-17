@@ -59,6 +59,7 @@ class Application(tk.Frame):
         self.create_show_visualization_button()
         self.create_linear_regression_button()
         self.create_same_columns_warning_label()
+        self.create_plot_color_selector()
 
     def initialize_analysis(self):
         """Load all analysis objects needed
@@ -246,7 +247,7 @@ class Application(tk.Frame):
 
 
         self.quit_button = Button(self, text='Quit', command = self.quit)
-        self.quit_button.grid(column=1, row=3, sticky="nesw")
+        self.quit_button.grid(column=1, row=4, sticky="nesw")
 
 
     def create_canvas(self):
@@ -340,6 +341,31 @@ class Application(tk.Frame):
         self.same_columns_warning_label.grid(row = 6, column = 2)
         self.same_columns_warning_label.grid_remove()
         self.same_columns_warning_label_isVisible = False
+
+    def create_plot_color_selector(self):
+        """Create OptionMenu so the user can choose which color they want the plot to be
+        self.COLOR_OPTIONS - STRING List - holds all possible color options - same as colors in Graph class
+        self.plot_color_selected - StringVar - stores which color is currently selected
+        self.plot_color_selector - OptionMenu - allows user to choose color and triggers set_plot_color to change the color"""
+
+
+        self.COLOR_OPTIONS = ['black', 'blue', 'green', 'red', 'yellow', 'orange']
+
+        self.plot_color_selected = StringVar(self.master)
+        self.plot_color_selected.set("red")
+
+        self.plot_color_selector = OptionMenu(self, self.plot_color_selected, *self.COLOR_OPTIONS, command = self.set_plot_color)
+        self.plot_color_selector.grid(row = 3, column = 1, sticky = 'nesw')
+    
+    def set_plot_color(self, event):
+        # if change_color doesn't turn out working just create a 'color' instance field, set the color in this method
+        # and then use this color instance field whenever a generate() method is called for a plot
+
+        if self.var.get() == 'Histogram':
+            self.histogram_object.change_color(event)
+        elif self.var.get() == 'Scatter Plot':
+            self.scatter_object.change_color(event)
+        
 
 if __name__ == "__main__":
     root = tk.Tk()
