@@ -150,7 +150,7 @@ class Application(tk.Frame):
         print("Histogram with " + column_name + " x column to be generated")
         self.f = Figure(figsize = (6,4), dpi = 100)
         self.a = self.f.add_subplot(111)
-        self.a = self.histogram_object.generate(column_name, self.a)
+        self.a = self.histogram_object.generate(column_name, self.a, color = self.plot_color)
         self.canvas = FigureCanvasTkAgg(self.f, master=self)
         self.canvas.get_tk_widget().grid(column=3, row=1, rowspan=5, sticky="nesw")
 
@@ -201,7 +201,7 @@ class Application(tk.Frame):
 
             self.f = Figure(figsize = (6,4), dpi = 100)
             self.a = self.f.add_subplot(111)
-            self.a = self.scatter_object.generate(x_column_name, y_column_name, self.a)
+            self.a = self.scatter_object.generate(x_column_name, y_column_name, self.a, color = self.plot_color)
             self.canvas = FigureCanvasTkAgg(self.f, master=self)
             self.canvas.get_tk_widget().grid(column=3, row=1, rowspan=5, sticky="nesw")
 
@@ -230,7 +230,7 @@ class Application(tk.Frame):
 
             self.f = Figure(figsize = (6,4), dpi = 100)
             self.a = self.f.add_subplot(111)
-            self.a = self.scatter_object.lin_generate(x_column_name, y_column_name, self.a)
+            self.a = self.scatter_object.lin_generate(x_column_name, y_column_name, self.a, color = self.plot_color)
             self.canvas = FigureCanvasTkAgg(self.f, master=self)
             self.canvas.get_tk_widget().grid(column=3, row=1, rowspan=5, sticky="nesw")
 
@@ -346,6 +346,7 @@ class Application(tk.Frame):
 
         self.plot_color_selected = StringVar(self.master)
         self.plot_color_selected.set("red")
+        self.plot_color = 'red'
 
         self.plot_color_selector = OptionMenu(self, self.plot_color_selected, *self.COLOR_OPTIONS, command = self.set_plot_color)
         self.plot_color_selector.grid(row = 3, column = 1, sticky = 'nesw')
@@ -354,10 +355,7 @@ class Application(tk.Frame):
         # if change_color doesn't turn out working just create a 'color' instance field, set the color in this method
         # and then use this color instance field whenever a generate() method is called for a plot
 
-        if self.var.get() == 'Histogram':
-            self.histogram_object.change_color(event)
-        elif self.var.get() == 'Scatter Plot':
-            self.scatter_object.change_color(event)
+        self.plot_color = event
         
 
 if __name__ == "__main__":

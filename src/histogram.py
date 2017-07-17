@@ -58,7 +58,7 @@ class Histogram(graph.Graph):
 
         # This is where the histogram function determines the amount of bins if not given any.
         if bins == None:
-            ax.hist(values, ec='black', color=get_current_color())
+            ax.hist(values, ec='black', color=super().get_current_color())
         else:
             ax.hist(values, bins=bins, ec='black', color=super().get_current_color())
 

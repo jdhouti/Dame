@@ -102,8 +102,8 @@ class Scatter(graph.Graph):
         return ax
 
 # This is the test part, you can delete everything below
-f = plt.figure(figsize = (6,4), dpi = 100)
-a = f.add_subplot(111)
-obj1 = Scatter('/Users/Julien/Downloads/Iris.csv')
-a = obj1.generate('SepalLengthCm', 'SepalWidthCm', a, color='greeen')
-plt.show()
+# f = plt.figure(figsize = (6,4), dpi = 100)
+# a = f.add_subplot(111)
+# obj1 = Scatter('/Users/Julien/Downloads/Iris.csv')
+# a = obj1.generate('SepalLengthCm', 'SepalWidthCm', a, color='greeen')
+# plt.show()
