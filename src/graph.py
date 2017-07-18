@@ -67,7 +67,3 @@ class Graph(do.DataObject):
             raise ValueError("Color not found.")
         else:
             self.current_color = self.colors[self.colors.index(color)]
-
-# this is a test material
-# obj1 = Graph("histogram", '/Users/Julien/Downloads/Iris.csv')
-# print(obj1.colors)

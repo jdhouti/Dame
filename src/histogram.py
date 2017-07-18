@@ -7,7 +7,6 @@ import graph
 import file_name_generator as fng
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
-import os
 
 class Histogram(graph.Graph):
     def __init__(self, filepath):

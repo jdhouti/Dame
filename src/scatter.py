@@ -4,7 +4,6 @@
 # Python 3.6.1
 # /Users/Julien/Downloads
 
-import os
 import graph
 import numpy as np
 import matplotlib.pyplot as plt
