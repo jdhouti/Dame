@@ -99,14 +99,14 @@ class Application(tk.Frame):
 
     def create_visualization_selector(self):
         """Create OptionMenu to choose from different types of analysis 
-            self.var - StringVar - use .get() method to get currently selected visualization type - returns STRING
+            self.visualization_selected - StringVar - use .get() method to get currently selected visualization type - returns STRING
             self.visualization_selector - OptionMenu - allows user to choose between different visualizations (histogram, scatter plot etc)"""
 
 
         OPTIONS = ['Histogram', 'Scatter Plot']
-        self.var = StringVar(self.master)
-        self.var.set("Analysis")
-        self.visualization_selector = OptionMenu(self, self.var, *OPTIONS, command = self.determine_visualization_type)
+        self.visualization_selected = StringVar(self.master)
+        self.visualization_selected.set("Analysis")
+        self.visualization_selector = OptionMenu(self, self.visualization_selected, *OPTIONS, command = self.determine_visualization_type)
         self.visualization_selector.grid(row = 2, column = 1, sticky = 'nesw')
 
     def determine_visualization_type(self, event):
@@ -296,9 +296,9 @@ class Application(tk.Frame):
         """Calls whichever visualization method is desired"""
 
 
-        if self.var.get() == 'Histogram':
+        if self.visualization_selected.get() == 'Histogram':
             self.show_histogram()
-        elif self.var.get() == 'Scatter Plot':
+        elif self.visualization_selected.get() == 'Scatter Plot':
             self.show_scatter_plot()
 
     def create_column_selector_label(self):
