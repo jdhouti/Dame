@@ -1,6 +1,12 @@
 # Dame
 A simple application written in python 3 that will perform a customized analysis on a chosen file.
 
+| Analysis   |     Demonstration
+|----------|:-------------:|
+| Histogram |  ![](https://media.giphy.com/media/1332JX7Mmkxs6A/giphy.gif) |
+| Scatter plot |    ![](https://media.giphy.com/media/9UUeOHQIVz1mM/giphy.gif)   |
+| Linear regression | ![](https://media.giphy.com/media/11UBdESUvkJrHO/giphy.gif) |
+
 ## Getting Started
 
 These instructions will help you get the program running on your computer.
