@@ -1,5 +1,5 @@
 # Dame
-A simple application written in python 3 that will perform a customized analysis on a chosen file.
+A simple application written in python 3 that will perform a customized analysis on a chosen file. Similar to functionality of Excel.
 
 | Analysis   |     Demonstration
 |----------|:-------------:|
